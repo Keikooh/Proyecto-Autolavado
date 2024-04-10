@@ -1,0 +1,6 @@
+<IfModule mod_rewrite.c>
+# Ntx module created at NCHR
+	RewriteEngine on
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteRule ^(.*)$ index.php?pagina=$1 [QSA,L]
+</IfModule>
