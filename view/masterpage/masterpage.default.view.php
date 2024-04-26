@@ -61,9 +61,11 @@
       placeholder: "w-full h-[120px] bg-gray-200/50 rounded-xl",
       start: function () {
         // Cuando se comienza el proceso de arrastrado
+        alert("Comienza");
       },
       stop: function () {
         // Cuando se suelta el item que está siendo arrastrado
+        alert("Termina");
       },
     });
 
