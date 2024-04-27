@@ -1,39 +1,96 @@
-<style>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mostrar Imagen en Laravel</title>
+    <style>
+        body {
+            background-color: #C2C9EF;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
-    .square {
-        width: 500px;
-        height: 500px;
-        background-color: #E0E5FA;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-</style>
+        .square {
+            width: 500px;
+            height: 500px;
+            background-color: #E0E5FA;
+            position: relative;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            width: 70px;
+            height: 100px;
+            display: block;
+            margin: 0 auto; 
+            margin-top: 20px; 
+        }
+
+        form {
+            margin-top: 40px; /* Ajuste del espacio entre la imagen y el formulario */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #001459;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 20px;
+            background-color: #6C86B5;
+            color: #000;
+            font-family: inherit;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 20px;
+            background-color: #27446E;
+            color: #FFF;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #001459;
+        }
+    </style>
 </head>
-<body style="background-color: #C2C9EF;">
-
-
+<body>
 
 <section>
-<div class="square rounded-lg shadow-2xl">    
-    <div>
-        <div>
-            <form class="max-w-sm mx-auto fs-5">
-                <div class="mt-40">
-                    <label for="base-input" class="block mb-2 font-medium text-[#001459]"><strong> Cargo</strong></label>
-                    <input type="text" id="base-input" class="bg-[#6C86B5] border border-inherit text-gray-900 rounded-full focus:ring-blue-500 focus:border-blue-500 block w-full p-2 ">
-                </div>
+    <div class="square">  
+        <img src="dist\images\Logo.png" alt="Logo de la empresa" class="logo">
+        <form class="max-w-sm mx-auto fs-5" method="POST" action="login">
+            <label for="base-input">Cargo</label>
+            <input type="text" name="txtCargo" id="base-input" required>
+            
+            <label for="password">Contraseña</label>
+            <input type="password" name="txtPassword" id="password" required>
 
-                <label for="password" class="block mb-2 font-medium text-[#001459] mt-5"><strong>Contraseña</strong></label>
-                <input type="password" id="password" class="bg-[#6C86B5]  text-gray-900 rounded-full focus:ring-blue-500 focus:border-blue-500 block w-full p-2 " required />
+            <div class="text-center mt-10">
+                <button type="submit">INGRESAR</button>
+            </div>
+        </form>
+    </div>    
+</section>
 
-                <div class="text-center mt-10">
-                    <button type="submit" class="text-white bg-[#27446E] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-full sm:w-auto px-5 py-4 text-center">INGRESAR</button>
-                </div>
-
-            </form>
-        </div>
-    </div>
-</div>    
-</section> 
+</body>
+</html>
