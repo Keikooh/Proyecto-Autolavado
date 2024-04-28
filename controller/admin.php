@@ -11,5 +11,6 @@ $accesoDatos = AccesoDatosAdministrador::obtenerInstancia();
 $p['empleadoDia'] = $accesoDatos->obtenerEmpleadoDia();
 $p['total']=$accesoDatos->obtenerTotalLavados();
 $p['ganancias']=$accesoDatos->obtenerGananciasDia();
+$p['resultado']=$accesoDatos->obtenerReportes();
 
 View('admin', $p);

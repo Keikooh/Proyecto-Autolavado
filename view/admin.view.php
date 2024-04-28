@@ -101,18 +101,7 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                    <tr>
-                        <td class="px-6 py-4 whitespace-nowrap">FACT-00001</td>
-                        <td class="px-6 py-4 whitespace-nowrap">Jared</td>
-                        <td class="px-6 py-4 whitespace-nowrap">Pedro</td>
-                        <td class="px-6 py-4 whitespace-nowrap">SKDA</td>
-                        <td class="px-6 py-4 whitespace-nowrap">Camiones</td>
-                        <td class="px-6 py-4 whitespace-nowrap">88</td>
-                        <td class="px-6 py-4 whitespace-nowrap">Azul</td>
-                        <td class="px-6 py-4 whitespace-nowrap">Azul Feo</td>
-                        <td class="px-6 py-4 whitespace-nowrap">27/04/2024</td>
-                        <td class="px-6 py-4 whitespace-nowrap">200</td>
-                    </tr>
+                    <?php echo $resultado?>
                 </tbody>
             </table>
 
