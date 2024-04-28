@@ -32,15 +32,15 @@
 
             <ul class="flex flex-row gap-x-3 text-[#001459] font-semibold mt-4 mb-4">
                 <li class="inline-block flex items-center">
-                    <p class="bg-white rounded-3xl px-5 py-2 text-center shadow-lg">El empleado del día: <strong class="font-semibold">Pedro</strong></p>
+                    <p class="bg-white rounded-3xl px-5 py-2 text-center shadow-lg">El empleado del día: <strong class="font-semibold"><?php echo $empleadoDia ?></strong></p>
                     <img class="h-10 w-10 mx-2" src="images/one.png" alt="Empleado No. 1">
                 </li>
                 <li class="inline-block flex items-center">
-                    <p class="bg-white rounded-3xl px-5 py-2 text-center shadow-lg">Total de lavados: <strong class="font-semibold">13</strong></p>
+                    <p class="bg-white rounded-3xl px-5 py-2 text-center shadow-lg">Total de lavados: <strong class="font-semibold"><?php echo $total ?></strong></p>
                     <img class="h-10 w-10 mx-2" src="images/car.png" alt="Autos lavados">
                 </li>
                 <li class="inline-block flex items-center">
-                    <p class="bg-white rounded-3xl px-5 py-2 text-center shadow-lg">Ganancias del día: <strong class="font-semibold">$4123.00</strong></p>
+                    <p class="bg-white rounded-3xl px-5 py-2 text-center shadow-lg">Ganancias del día: <strong class="font-semibold">$<?php echo $ganancias?></strong></p>
                     <img class="h-10 w-10 mx-2" src="images/money.png" alt="Dinero ganado">
                 </li>
             </ul>
@@ -69,7 +69,7 @@
                     </div>
 
                 </div>
-                <div class="flex mt-4 space-x-4"> <!-- Añadido espacio entre los elementos -->
+                <div class="flex mt-4 space-x-4">
                     <div class="relative w-1/4">
                         <input type="date" name="txtFechaInicio" id="txtFechaInicio" class="block w-full py-2 pl-3 pr-8 border border-gray-300 rounded-md bg-white focus:bg-white focus:outline-none focus:border-blue-400">
                         <label for="txtFechaInicio" class="absolute left-3 transition-all duration-300 ease-in-out -top-2 px-1 bg-white rounded-md text-gray-600 text-xs border border-gray-300">Fecha de Inicio</label>
