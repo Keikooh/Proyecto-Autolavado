@@ -10,131 +10,126 @@
     }
 </style>
 </head>
+
 <body style="background-color: #C2C9EF;">
 
-<section>
-    <div class="square rounded-lg shadow-2xl">    
-        <div>
-            <div>
-                <div class="text-right mr-12 mt-6 mb-2 text-base text-[#001459]"><strong>Administrador</strong></div>
-                <div class="ml-10 mt-15 text-2xl text-[#001459]"><strong>Reportes</strong></div>
-                <div class="flex">
-                    <div class="ml-10 text-xs badge rounded-full bg-white w-40 h-8 text-black shadow-2xl flex items-center mt-3">
-                        <strong class="flex-grow text-center">Empleado del dia: Pedro</strong>
-                    </div>
-                    <div class="ml-10 text-xs badge rounded-full bg-white w-40 h-8 text-black shadow-2xl flex items-center mt-3">
-                        <strong class="flex-grow text-center">Total de lavado: 13</strong>
-                    </div>
-                    <div class="ml-10 text-xs badge rounded-full bg-white w-40 h-8 text-black shadow-2xl flex items-center mt-3">
-                        <strong class="flex-grow text-center">Genancias del dia: $715.0</strong>
-                    </div>
-                </div>
-
-                <hr class="bg-color-white">
-
-
-                
-                <div class="ml-10 mt-10 text-base text-[#001459] mr-10">
-                    <div class="flex justify-between items-center">
-                        <strong>Lavados</strong>
-                        <div class="flex mr-15">
-                            <div class="flex items-center me-4">
-                                <input id="inline-checkbox" type="checkbox" value="cliente" class="w-4 h-4 text-blue-600 bg-white border-gray-300 " onclick="uncheckOthers('inline-checkbox')">
-                                <label for="inline-checkbox" class="ms-2 text-sm font-medium text-gray-900">Cliente</label>
-                            </div>
-                            <div class="flex items-center me-4">
-                                <input id="inline-2-checkbox" type="checkbox" value="empleado" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 " onclick="uncheckOthers('inline-2-checkbox')">
-                                <label for="inline-2-checkbox" class="ms-2 text-sm font-medium text-gray-900">Empleado</label>
-                            </div>
-                            <div class="flex items-center me-4">
-                                <input checked id="inline-checked-checkbox" type="checkbox" value="vehiculo" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 " onclick="uncheckOthers('inline-checked-checkbox')">
-                                <label for="inline-checked-checkbox" class="ms-2 text-sm font-medium text-gray-900">Vehiculo</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="ml-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                    <div class="sm:col-span-4">
-                        <div class="mt-2 flex flex-row space-x-2">
-                            <div class="flex rounded-lg shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 flex-2">
-                                <input type="text" name="fechaInicio" id="fechaInicio" autocomplete="Fecha de Inicio" class="rounded-lg border-0 bg-white py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 w-full sm:text-sm sm:leading-6" placeholder="Fecha de Inicio">
-                            </div>
-                            <div class="flex rounded-lg shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 flex-2">
-                                <input type="text" name="fechaFinal" id="fechaFinal" autocomplete="Fecha Final" class="rounded-lg border-0 bg-white py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 w-full sm:text-sm sm:leading-6" placeholder="Fecha Final">
-                            </div>
-                            <div class="flex rounded-lg shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 flex-1">
-                                <input type="text" name="empleado" id="empleado" autocomplete="Empleado" class="rounded-lg border-0 bg-white py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 w-full sm:text-sm sm:leading-6" placeholder="Empleado">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                
-                
-
-                <div class="relative overflow-x-auto ml-10 mr-10 mt-5">
-                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                            <tr>
-                                <th scope="col" class="px-6 py-3">
-                                    Empleado
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Fecha Inicio
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Fecha Final
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    Gabriel Chaires
-                                </th>
-                                <td class="px-6 py-4">
-                                    25 abril
-                                </td>
-                                <td class="px-6 py-4">
-                                    26 abril
-                                </td>
-                            </tr>
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    Jared Alonso
-                                </th>
-                                <td class="px-6 py-4">
-                                    24 abril
-                                </td>
-                                <td class="px-6 py-4">
-                                    25 abril
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                    
-
-
+    <div class="flex flex-col my-9 gap-y-5 w-[93%] m-auto shadow-inner rounded-lg bg-white/70 p-10 rounded h-[90vh]">
+        <nav>
+            <div class="flex justify-between mb-4">
+                <h1 class="text-[#001459] text-2xl font-bold">Reportes</h1>
+                <span class="flex items-center gap-x-3 font-semibold">
+                    Administrador
+                    <button>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-logout" width="22" height="22" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
+                            <path d="M9 12h12l-3 -3" />
+                            <path d="M18 15l3 -3" />
+                        </svg>
+                    </button>
+                </span>
             </div>
-        </div>
-    </div>
-</section> 
+
+            <ul class="flex flex-row gap-x-3 text-[#001459] font-semibold mt-4 mb-4">
+                <li class="inline-block flex items-center">
+                    <p class="bg-white rounded-3xl px-5 py-2 text-center shadow-lg">El empleado del día: <strong class="font-semibold">Pedro</strong></p>
+                    <img class="h-10 w-10 mx-2" src="images/one.png" alt="Empleado No. 1">
+                </li>
+                <li class="inline-block flex items-center">
+                    <p class="bg-white rounded-3xl px-5 py-2 text-center shadow-lg">Total de lavados: <strong class="font-semibold">13</strong></p>
+                    <img class="h-10 w-10 mx-2" src="images/car.png" alt="Autos lavados">
+                </li>
+                <li class="inline-block flex items-center">
+                    <p class="bg-white rounded-3xl px-5 py-2 text-center shadow-lg">Ganancias del día: <strong class="font-semibold">$4123.00</strong></p>
+                    <img class="h-10 w-10 mx-2" src="images/money.png" alt="Dinero ganado">
+                </li>
+            </ul>
+        </nav>
+        <hr class="bg-color-white">
+
+        <main>
+            <form class="mb-8" action="" method="get">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-[#001459] text-base font-bold mr-8">Lavados</h2>
+                    <div class="flex items-center gap-x-3 text-[#001459] font-semibold mt-4 mb-4">
+                        <button class="bg-white border border-gray-300 hover:bg-gray-100 text-[#001459] font-bold py-2 px-4 rounded-full shadow-lg flex items-center transition-colors duration-300 ease-in-out">
+                            Generar reporte
+                            <img class="h-8 w-8 ml-2" src="images/report.png" alt="Empleado No. 1">
+                        </button>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <input type="checkbox" name="chkCliente" id="chkCliente" class="appearance-none w-4 h-4 border border-gray-300 rounded checked:bg-blue-400 checked:border-transparent">
+                        <label for="chkCliente" class="inline-block text-sm text-[#001459] cursor-pointer">Cliente</label>
+
+                        <input type="checkbox" name="chkEmpleado" id="chkEmpleado" class="appearance-none w-4 h-4 border border-gray-300 rounded checked:bg-blue-400 checked:border-transparent">
+                        <label for="chkEmpleado" class="inline-block text-sm text-[#001459] cursor-pointer">Empleado</label>
+
+                        <input type="checkbox" name="chkVehiculo" id="chkVehiculo" class="appearance-none w-4 h-4 border border-gray-300 rounded checked:bg-blue-400 checked:border-transparent">
+                        <label for="chkVehiculo" class="inline-block text-sm text-[#001459] cursor-pointer">Vehiculo</label>
+                    </div>
+
+                </div>
+                <div class="flex mt-4 space-x-4"> <!-- Añadido espacio entre los elementos -->
+                    <div class="relative w-1/4">
+                        <input type="date" name="txtFechaInicio" id="txtFechaInicio" class="block w-full py-2 pl-3 pr-8 border border-gray-300 rounded-md bg-white focus:bg-white focus:outline-none focus:border-blue-400">
+                        <label for="txtFechaInicio" class="absolute left-3 transition-all duration-300 ease-in-out -top-2 px-1 bg-white rounded-md text-gray-600 text-xs border border-gray-300">Fecha de Inicio</label>
+                    </div>
+                    <div class="relative w-1/4">
+                        <input type="date" name="txtFechaFinal" id="txtFechaFinal" class="block w-full py-2 pl-3 pr-8 border border-gray-300 rounded-md bg-white focus:bg-white focus:outline-none focus:border-blue-400">
+                        <label for="txtFechaFinal" class="absolute left-3 transition-all duration-300 ease-in-out -top-2 px-1 bg-white rounded-md text-gray-600 text-xs border border-gray-300">Fecha Final</label>
+                    </div>
+                    <div class="relative flex-1">
+                        <input type="search" name="txtBuscar" id="txtBuscar" class="block w-full py-2 pl-3 pr-8 border border-gray-300 rounded-l-md rounded-r-none bg-white focus:bg-white focus:outline-none focus:border-blue-400">
+                        <label for="txtBuscar" class="absolute left-3 transition-all duration-300 ease-in-out -top-2 px-1 bg-white rounded-md text-gray-600 text-xs border border-gray-300">Buscar</label>
+                        <img src="images/search.png" alt="Busqueda" class="h-10 w-10 absolute right-0 top-1/2 transform -translate-y-1/2 mr-2">
+                    </div>
+                </div>
+            </form>
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Factura</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Empleado</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cliente</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Placa</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tipo</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Modelo</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Color</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Observaciones</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Costo</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">FACT-00001</td>
+                        <td class="px-6 py-4 whitespace-nowrap">Jared</td>
+                        <td class="px-6 py-4 whitespace-nowrap">Pedro</td>
+                        <td class="px-6 py-4 whitespace-nowrap">SKDA</td>
+                        <td class="px-6 py-4 whitespace-nowrap">Camiones</td>
+                        <td class="px-6 py-4 whitespace-nowrap">88</td>
+                        <td class="px-6 py-4 whitespace-nowrap">Azul</td>
+                        <td class="px-6 py-4 whitespace-nowrap">Azul Feo</td>
+                        <td class="px-6 py-4 whitespace-nowrap">27/04/2024</td>
+                        <td class="px-6 py-4 whitespace-nowrap">200</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </main>
 
 
 
-<script>
-    function uncheckOthers(id) {
-        // Obtener todas las casillas de verificación
-        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        
-        // Recorrer las casillas de verificación y desmarcar todas excepto la que se acaba de marcar
-        checkboxes.forEach(function(checkbox) {
-            if (checkbox.id !== id) {
-                checkbox.checked = false;
+        <script>
+            function uncheckOthers(id) {
+                // Obtener todas las casillas de verificación
+                var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+                // Recorrer las casillas de verificación y desmarcar todas excepto la que se acaba de marcar
+                checkboxes.forEach(function(checkbox) {
+                    if (checkbox.id !== id) {
+                        checkbox.checked = false;
+                    }
+                });
             }
-        });
-    }
-</script>
+        </script>
