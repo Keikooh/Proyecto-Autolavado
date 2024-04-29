@@ -40,7 +40,7 @@
                     <img class="h-10 w-10 mx-2" src="images/car.png" alt="Autos lavados">
                 </li>
                 <li class="inline-block flex items-center">
-                    <p class="bg-white rounded-3xl px-5 py-2 text-center shadow-lg">Ganancias del día: <strong class="font-semibold">$<?php echo $ganancias?></strong></p>
+                    <p class="bg-white rounded-3xl px-5 py-2 text-center shadow-lg">Ganancias del día: <strong class="font-semibold">$<?php echo $ganancias ?></strong></p>
                     <img class="h-10 w-10 mx-2" src="images/money.png" alt="Dinero ganado">
                 </li>
             </ul>
@@ -48,7 +48,7 @@
         <hr class="bg-color-white">
 
         <main>
-            <form class="mb-8" action="" method="get">
+            <form id="frmFiltrador" class="mb-8" action="admin" method="get">
                 <div class="flex justify-between items-center">
                     <h2 class="text-[#001459] text-base font-bold mr-8">Lavados</h2>
                     <div class="flex items-center gap-x-3 text-[#001459] font-semibold mt-4 mb-4">
@@ -101,7 +101,7 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                    <?php echo $resultado?>
+                    <?php echo $resultado ?>
                 </tbody>
             </table>
 
@@ -110,6 +110,20 @@
 
 
         <script>
+            $(document).ready(function() {
+                $('#txtBuscar').on('input', function() {
+                    // Envía el formulario
+                    alert('Texto');
+                });
+                // Agrega un manejador de eventos change a todos los elementos de formulario dentro de #myForm
+                $('#frmFiltrador :input').change(function() {
+                    // Envía el formulario
+                    alert('Texto');
+                    //$('#frmFiltrador').submit();
+                });
+            });
+
+            /*
             function uncheckOthers(id) {
                 // Obtener todas las casillas de verificación
                 var checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -120,5 +134,5 @@
                         checkbox.checked = false;
                     }
                 });
-            }
+            }*/
         </script>

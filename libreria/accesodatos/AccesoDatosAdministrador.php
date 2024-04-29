@@ -61,11 +61,16 @@ class AccesoDatosAdministrador
         return (float)$ganancias;
     }
 
-    public function obtenerReportes(){
+    public function obtenerReportes($fechaInicio,$fechaFinal,$isCliente,$isEmpleado,$isVehiculo){
         $con = new mysqli(s,u,p,bd);
         $query = $con->set_charset("utf8");
         $query= $con->stmt_init();
+        
+        echo $fechaInicio;
         $query->prepare("CALL pConsultarReportes(NULL,NULL, '')");
+        
+
+        
         $query->execute();
         $query->bind_result($factura,$empleado,$placa,$cliente,$tipo,$modelo,$color,$fecha,$costo,$observaciones);
         $rs='';
