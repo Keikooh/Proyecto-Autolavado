@@ -37,63 +37,10 @@
             <!-- Seccion de empleados -->
             <div class="flex w-[25%] flex-col gap-y-5">
                 <h3 class="text-[#001459] text-1xl font-semibold">Empleado</h3>
-                <ul id="empleados"
-                    class="flex flex-col gap-y-5 bg-white h-[650px] rounded-2xl p-4 shadow-lg overflow-auto">
+                <ul id="empleados"class="flex flex-col gap-y-5 bg-white h-[650px] rounded-2xl p-4 shadow-lg overflow-auto MostrarCARDS">
 
                     <!-- Ejemplos de tarjeta para empleado -->
-
-                    <li class="flex items-center gap-x-3 p-4 bg-[#E5E4EE] rounded-xl">
-                        <div class="color bg-indigo-400 size-5 rounded-full"></div>
-                        <div class="w-[90%]">
-                            <div class="flex  justify-between">
-                                <!-- Nombre del empleado -->
-                                <h3 class="lblEmpleado text-[#001459] font-bold">Chaires Lira</h3>
-                                <button class="btnEliminarEmpleado">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x"
-                                        width="22" height="22" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50"
-                                        fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path d="M18 6l-12 12" />
-                                        <path d="M6 6l12 12" />
-                                    </svg>
-                                </button>
-                            </div>
-                            <!-- Rol -->
-                            <p class="text-black/35 font-semibold text-sm">
-                                Encargado de lavado
-                            </p>
-                            <!-- Turno -->
-                            <p class="text-black/35 font-semibold text-sm">
-                                Turno matutino
-                            </p>
-                        </div>
-                    </li>
-                    <li class="flex items-center gap-x-3 p-4 bg-[#E5E4EE] rounded-xl">
-                        <div class="color bg-yellow-400 size-5 rounded-full"></div>
-                        <div class="w-[90%]">
-                            <div class="flex  justify-between">
-                                <!-- Nombre del empleado -->
-                                <h3 class="lblEmpleado text-[#001459] font-bold">Juan Miguel</h3>
-                                <button class="btnEliminarEmpleado">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x"
-                                        width="22" height="22" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50"
-                                        fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path d="M18 6l-12 12" />
-                                        <path d="M6 6l12 12" />
-                                    </svg>
-                                </button>
-                            </div>
-                            <!-- Rol -->
-                            <p class="text-black/35 font-semibold text-sm">
-                                Encargado de lavado
-                            </p>
-                            <!-- Turno -->
-                            <p class="text-black/35 font-semibold text-sm">
-                                Turno matutino
-                            </p>
-                        </div>
-                    </li>
+                    <?php echo $empleados; ?>
                 </ul>
             </div>
 
@@ -185,7 +132,6 @@
         </div>
 
         <form class="max-w-md mt-10 mx-auto font-semibold">
-
             <!-- Nombre -->
             <div class="relative z-0 w-full mb-5 group">
                 <input type="text" name="txtNombreEmpleado" id="txtNombreEmpleado" class="
@@ -229,6 +175,7 @@
 
             <!-- Cargo -->
             <div class="relative z-0 w-full mb-5 group">
+                <label for="">Cargo</label>
                 <select id="txtCargo" name="txtCargo"
                     class="block pl-3 pr-10 py-2 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer">
                     <option>Lavado</option>
@@ -237,6 +184,7 @@
 
             <!-- Turno -->
             <div class="relative z-0 w-full mb-5 group">
+                <label for="">Turno</label>
                 <select id="txtTurno" name="txtTurno"
                     class="block pl-3 pr-10 py-2 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer">
                     <option>Vespertino</option>
@@ -245,6 +193,7 @@
             </div>
 
             <!-- Salario -->
+            <label for="">Salario</label>
             <div class="relative z-0 w-full mb-5 group">
                 <div class="absolute inset-y-0 start-0 top-0 flex items-center ps-3.5 pointer-events-none">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-coin" width="22"
@@ -395,8 +344,8 @@
         ventanaAgregarEmpleado.remplazarClases('right-0', 'right-[-35%]');
     });
     $('#btnAgregarEmpleado').click(function () {
-        
         ventanaAgregarEmpleado.remplazarClases('right-0', 'right-[-35%]');
+        
     });
     $('#btnOpenAgregarEmpleado').click(function () {
         ventanaAgregarEmpleado.remplazarClases('right-0', 'right-[-35%]');
@@ -430,11 +379,9 @@
       placeholder: "w-full h-[120px] bg-gray-200/50 rounded-xl",
       start: function () {
         // Cuando se comienza el proceso de arrastrado
-        alert("Comienza");
       },
       stop: function () {
         // Cuando se suelta el item que está siendo arrastrado
-        alert("Termina");
       },
     });
 
@@ -447,73 +394,127 @@
     });
     //  EMPLEADO /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
+    let accion='agregar';
+    let id;
     // Agregar
     $("#btnAgregarEmpleado").click(function () {
-      event.preventDefault();
-      const nombre = $('#txtNombreEmpleado').val();
-      const color = $('#txtColor').val()
-      const cargo = $('#txtCargo').val();
-      const turno = $('#txtTurno').val();
-      const salario = $('#txtSalario').val();
-
-      /* 
-        Logica para agregar empleados a la base de datos
-      */
-
-      // Se agrega empleados a la lista
-      $('#empleados').append(`
-        <li id="${Math.random()}" class="flex items-center gap-x-3 p-4 bg-[#E5E4EE] rounded-xl">
-          <div class="color size-5 rounded-full" style="background: ${color}"></div>
-            <div class="w-[90%]">
-              <div class="flex  justify-between">
-              <h3 class="lblEmpleado text-[#001459] font-bold">${nombre}</h3>
-              <button class="btnEliminarEmpleado">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x"
-                      width="22" height="22" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50"
-                      fill="none" stroke-linecap="round" stroke-linejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                      <path d="M18 6l-12 12" />
-                      <path d="M6 6l12 12" />
-                  </svg>
-              </button>
-            </div>
-            <p class="text-black/35 font-semibold text-sm">
-                ${cargo}
-            </p>
-            <p class="text-black/35 font-semibold text-sm">
-                ${turno}
-            </p>
-          </div>
-        </li>`);
-    })
-
-    // Eliminar
-    $(document).on('click', '.btnEliminarEmpleado', function () {
-      Swal.fire({
-        title: `¿Estás seguro de eliminar?`,
-        text: "¡No podrás revertir esto!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "¡Sí, elimínalo!"
-      }).then((result) => {
-        if (result.isConfirmed) {
-
-          // Eliminar al empleado de la lista
-          $(this).parent().parent().parent().remove();
-
-          /* 
-            Logica para eliminar empleados de la base de datos
-          */
-
-          Swal.fire({
-            title: "¡Eliminado!",
-            text: "Empleado eliminado",
-            icon: "success"
-          });
+        event.preventDefault();
+        const nombre = $('#txtNombreEmpleado').val();
+        const color = $('#txtColor').val(); 
+        const cargo = $('#txtCargo').val();
+        const turno = $('#txtTurno').val();
+        const salario = $('#txtSalario').val();
+        if(accion==='agregar')
+        {
+            enviarDatosEmpleado(-1, nombre, color, cargo, turno, salario);
         }
-      });
+        else if(accion==='modificar')
+        {
+            enviarDatosEmpleado(id, nombre, color, cargo, turno, salario);
+            accion='agregar';
+        }
+        $('#txtNombreEmpleado').val('');
+        $('#txtColor').val('');
+        $('#txtCargo').val('');
+        $('#txtTurno').val('');
+        $('#txtSalario').val('');
+    });
+
+    // Modificar
+    $(document).on('dblclick', '.Modificar', function() {
+        ventanaAgregarEmpleado.remplazarClases('right-0', 'right-[-35%]');
+        accion = 'modificar'; 
+        id = $(this).data('id');
+        const nombre = $(this).find('#eNombre').text();
+        const color = $(this).find('#eColor').css('background-color');
+        const cargo = $(this).find('#eCargo').text();
+        const turno = $(this).find('#eTurno').text();
+        const salario = $(this).find('#eSalario').text();
+        // Asignar los valores a los campos del formulario
+        $('#txtNombreEmpleado').val(nombre);
+        $('#txtColor').val(tinycolor(color).toHexString());
+        $('#txtCargo').val(cargo);
+        $('#txtTurno').val(turno);
+        $('#txtSalario').val(salario);
+    });
+
+
+    function enviarDatosEmpleado(id, nombre, color, cargo, turno, salario) {
+        $.ajax({
+            url: 'supervisor',
+            method: 'POST',
+            data: {
+                btnEliminarEmpleado: id,
+                txtNombreEmpleado: nombre,
+                txtCargo: cargo,
+                txtTurno: turno,
+                txtSalario: salario,
+                txtColor: color 
+            },
+            success: function (response) {
+                if (accion === 'agregar') {
+                    Swal.fire("Empleado Guardado", "Empleado guardado exitosamente.", "success")
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            Actualizar();
+                        }
+                    });
+                } else if (accion === 'modificar') {
+                    Swal.fire("Empleado Modificado", "Empleado modificado exitosamente.", "success")
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            Actualizar();
+                        }
+                    });
+                }
+            },
+            error: function (xhr, status, error) {
+                if (accion === 'agregar') {
+                    Swal.fire("Error", "Hubo un problema al agregar el empleado", "error");
+                } else {
+                    Swal.fire("Error", "Hubo un problema al modificar el empleado", "error");
+                }
+            }
+        });
+    }
+
+    //Eliminar
+    $(document).ready(function() {
+        $(document).on('click', '.btnEliminarEmpleado', function () {
+            const id = $(this).data('id'); 
+            Swal.fire({
+                title: "¿Estás seguro de eliminar?",
+                text: "¡No podrás revertir esto!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "¡Sí, elimínalo!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Realizar la petición AJAX para eliminar al empleado
+                    $.ajax({
+                        url: "supervisor", // Ruta al controlador que maneja la eliminación
+                        type: "POST",
+                        data: { btnEliminarEmpleado: id }, // Aquí debes enviar el ID con una clave
+                        success: function(response) {
+                            // Eliminar al empleado de la lista si se elimina correctamente
+                            if (response === "success") {
+                                Swal.fire("Error", "Hubo un problema al eliminar el empleado", "error");
+                            } else {
+                                Swal.fire("¡Eliminado!", "Empleado eliminado", "success").then(() => {
+                                    Actualizar();
+                                });
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(xhr.responseText);
+                            Swal.fire("Error", "Hubo un problema al eliminar el empleado", "error");
+                        }
+                    });
+                }
+            });
+        });
     });
 
     //  VEHICULO /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -568,4 +569,8 @@
     </li>`);
     })
 
+    //Actualizar.
+    function Actualizar() {
+      location.reload(true);
+    }
   </script>

@@ -1,4 +1,3 @@
 <?php 
-	$p = array();
-	View('login',$p);
+	controller("login");
  ?>
