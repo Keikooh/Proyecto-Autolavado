@@ -19,7 +19,7 @@
             // Preparar la llamada al procedimiento almacenado
             $sql = "CALL InsertOrUpdateEmpleado(?, ?, ?, ?, ?, ?)";
             $stmt = $con->prepare($sql);
-            $stmt->bind_param("isssis", $identificador, $nombre, $cargo, $turno, $salario, $color);
+            $stmt->bind_param("isssds", $identificador, $nombre, $cargo, $turno, $salario, $color);
             $stmt->execute();
             $resultado = $stmt->affected_rows > 0;
             $stmt->close();
@@ -38,7 +38,7 @@
             $q->bind_result($id,$nombre,$cargo,$turno,$salario,$color);
             $rs = '';
             while ($q->fetch()) {
-                $rs .= '<li class="flex items-center gap-x-3 p-4 bg-[#E5E4EE] rounded-xl Modificar" data-id="'.$id.'">
+                $rs .= '<li class="flex items-center gap-x-3 p-4 bg-[#E5E4EE] rounded-xl Modificar id" data-id="'.$id.'">
                             <div class="color bg-indigo-400 size-5 rounded-full" style="background-color: '.$color.';" id="eColor"></div>
                             <div class="w-[90%]">
                                 <div class="flex  justify-between">

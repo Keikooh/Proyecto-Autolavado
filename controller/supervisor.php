@@ -2,7 +2,10 @@
 	session_start();
 	require 'libreria/CrudEmpleado.php';
 	require 'libreria/CrudVehiculo.php';
-	// Mostrar las tarjetas de empleados y vehiculos.
+	require 'libreria/CobroTractoCamion.php';
+	require 'libreria/CobroCamioneta.php';
+	require 'libreria/CobroAutomovil.php';
+	// Objetos.
 	$c = new CrudEmpleado();
 	$v = new CrudVehiculo();
 	$empleados = $c->Read();
@@ -38,5 +41,27 @@
 			echo "error";
 		}
 	}
+	//Codificaión para finalizar con el lavado.
+	if(isset($_POST['empleadoUno'], $_POST['empleadoDos'], $_POST['Placa'], $_POST['Observaciones'], $_POST['Tipo'])) {
+		switch ($_POST['Tipo']) {
+			case 'Automovil':
+				$cobroAutomovil = new CobroAutomovil();
+				$cobroAutomovil->Cobrar($_POST['empleadoUno'], $_POST['empleadoDos'], $_POST['Placa'], $_POST['Observaciones']);
+				break;
+			case 'Camioneta':
+				$cobroCamioneta = new CobroCamioneta();
+				$cobroCamioneta->Cobrar($_POST['empleadoUno'], $_POST['empleadoDos'], $_POST['Placa'], $_POST['Observaciones']);
+				break;
+			case 'Tracto Camion':
+				$cobroTractoCamion = new CobroTractoCamion();
+				$cobroTractoCamion->Cobrar($_POST['empleadoUno'], $_POST['empleadoDos'], $_POST['Placa'], $_POST['Observaciones']);
+				break;
+			default:
+				echo "No se recibieron datos.<br>";
+				break;
+		}
+	}
+
+	
 	view("Supervisor", ['empleados' => $empleados, 'vehiculos' => $vehiculos]);
 ?>

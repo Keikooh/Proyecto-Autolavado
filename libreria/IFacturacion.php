@@ -1,6 +1,6 @@
 <?php
     interface IFacturacion
     {
-        function Cobrar($empleado, $placa, $observaciones);
+        function Cobrar($empleadoUno,$empleadoDos, $placa, $observaciones);
     }
 ?>

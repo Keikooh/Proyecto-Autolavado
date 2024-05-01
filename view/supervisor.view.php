@@ -156,7 +156,7 @@
             </div>
 
             <!-- Salario -->
-            <label for="">Salario</label>
+            <label for="">Salario por Porcentaje de Lavado (0.25 = 25%)</label>
             <div class="relative z-0 w-full mb-5 group">
                 <div class="absolute inset-y-0 start-0 top-0 flex items-center ps-3.5 pointer-events-none">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-coin" width="22"
@@ -331,21 +331,77 @@
         zIndex: 1000
       });
     });
-
-    //Listas sorteables
+    const empleado=[];
+    // Listas sorteables
     $("#lavado, #secado, #completado").sortable({
-      connectWith: ".sorteable",
-      placeholder: "w-full h-[120px] bg-gray-200/50 rounded-xl",
-      start: function () {
-        // Cuando se comienza el proceso de arrastrado
-      },
-      stop: function () {
-        if($("#completado").sortable)
-        {
-            
-        }
-      },
+        connectWith: ".sorteable",
+        placeholder: "w-full h-[120px] bg-gray-200/50 rounded-xl",
+        start: function () {
+            // Código de inicio, si es necesario
+        },
+        stop: function (event, ui) {
+            // Verifica si el elemento fue soltado en la estación de completado
+            if ($(ui.item).closest('#completado').length > 0) {
+                const placa = ui.item.find('#ePlaca').text();
+                const tipo = ui.item.find('#eTipo').text();
+                let observaciones = 'Ninguna';
+                //Aqui se almacenan los dos empleados que estaban presentes en las estaciones de lavado cuando se desempeño la tarea.
+                /*empleado[0]
+                empleado[1]*/
+                Swal.fire({
+                    title: "¿Deseas Agregar una Observación para este lavado antes de finalizarlo?",
+                    text: "Nota: Cualquier observación es de gran valor.",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "¡Sí, por favor!",
+                    cancelButtonText: "No, gracias",
+                    input: 'text',
+                    inputPlaceholder: 'Escribe tu observación aquí...',
+                    inputValidator: (value) => {
+                        if (!value) {
+                            return 'Debes ingresar una observación';
+                        }
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        observaciones = result.value;
+                        console.log('Observación guardada correctamente, gracias.');
+                        alert(placa);
+                        alert(tipo);
+                        alert(observaciones);
+                        alert(empleado[0]);
+                        alert(empleado[1]);
+                        $.ajax({
+                            url: 'supervisor',
+                            method: 'POST',
+                            data: {
+                                empleadoUno: empleado[0],
+                                empleadoDos: empleado[1],
+                                Placa: placa,
+                                Observaciones: observaciones,
+                                Tipo: tipo,
+                            },
+                            success: function (response) {
+                                Swal.fire("Proceso finalizado exitosamente.", "Confirma este mensaje para cerrar.")
+                                    .then((result) => {
+                                        if (result.isConfirmed) {
+                                            //Actualizar();
+                                        }
+                                });
+                            },
+                            error: function (xhr, status, error) {
+                                Swal.fire("Error", "Hubo un problema al finalizar el lavado, por favor consulta con el administrador.", "error");
+                            }
+                        });
+                    }
+                });
+            }
+        },
     });
+
+
 
     // Cambios en los bordes al soltar las tarjetas de los empleados a las estaciones
     $(".estaciones").droppable({
@@ -354,16 +410,15 @@
             $(this).addClass("border-4").css("border-color", color);
             var nombreEmpleado = ui.draggable.find('#eNombre').text();
             var $textoSpan;
-            
             if ($(this).hasClass("lavado")) {
-            $textoSpan = $('.textoLavado');
+                $textoSpan = $('.textoLavado');
+                empleado[0] = ui.draggable.find('.btnEliminarEmpleado').val();
             } else if ($(this).hasClass("secado")) {
-            $textoSpan = $('.textoSecado');
+                $textoSpan = $('.textoSecado');
+                empleado[1] = ui.draggable.find('.btnEliminarEmpleado').val(); 
             }
-            
             // Eliminar el contenido actual del span
             $textoSpan.empty();
-            
             // Agregar el nuevo texto al span y aplicarle el color del borde
             $("<span>").text(' Administrado por ' + nombreEmpleado).appendTo($textoSpan).css("color", color);
         }
@@ -533,7 +588,6 @@
         } else{
             clasificacion = $('#txtClasificacion').val();
         }
-        alert(clasificacion);
         const tipo = $('#txtTipo').val();
         const modelo = $('#txtModelo').val();
         const color = $('#txtColorVehiculo').val(); 
