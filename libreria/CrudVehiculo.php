@@ -90,7 +90,12 @@
             $success = $q->execute();
             $q->close();
             $con->close();
-            return $success;
+            if ($success) {
+                return true; // Éxito en la eliminación
+            } 
+            else {
+                return false;
+            }
         }
     }
 ?>

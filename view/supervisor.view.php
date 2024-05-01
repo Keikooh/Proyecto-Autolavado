@@ -156,7 +156,7 @@
             </div>
 
             <!-- Salario -->
-            <label for="">Salario por Porcentaje de Lavado (0.25 = 25%)</label>
+            <label for="">Salario por Porcentaje de Ganancia en Lavado (0.25 = 25%)</label>
             <div class="relative z-0 w-full mb-5 group">
                 <div class="absolute inset-y-0 start-0 top-0 flex items-center ps-3.5 pointer-events-none">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-coin" width="22"
@@ -368,11 +368,6 @@
                     if (result.isConfirmed) {
                         observaciones = result.value;
                         console.log('Observación guardada correctamente, gracias.');
-                        alert(placa);
-                        alert(tipo);
-                        alert(observaciones);
-                        alert(empleado[0]);
-                        alert(empleado[1]);
                         $.ajax({
                             url: 'supervisor',
                             method: 'POST',
@@ -531,10 +526,12 @@
                         data: { btnEliminarEmpleado: id }, // Aquí debes enviar el ID con una clave
                         success: function(response) {
                             // Eliminar al empleado de la lista si se elimina correctamente
-                            if (response === "success") {
-                                Swal.fire("Error", "Hubo un problema al eliminar el empleado", "error");
-                            } else {
+                            if (response) {
                                 Swal.fire("¡Eliminado!", "Empleado eliminado", "success").then(() => {
+                                    Actualizar();
+                                });
+                            } else {
+                                Swal.fire("¡Oh no!", "Ocurrio un error inesperado", "error").then(() => {
                                     Actualizar();
                                 });
                             }
@@ -687,10 +684,12 @@
                         type: "POST",
                         data: { btnEliminarVehiculo: id },
                         success: function(response) {
-                            if (response === "success") {
-                                Swal.fire("Error", "Hubo un problema al eliminar el vehiculo", "error");
-                            } else {
+                            if (response) {
                                 Swal.fire("¡Eliminado!", "Vehiculo eliminado", "success").then(() => {
+                                    Actualizar();
+                                });
+                            } else {
+                                Swal.fire("¡Oh no!", "Ocurrio un error inesperado", "error").then(() => {
                                     Actualizar();
                                 });
                             }
