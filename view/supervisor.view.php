@@ -8,17 +8,18 @@
                 <h1 class="text-[#001459] text-2xl font-bold">Dashboard</h1>
                 <span class="flex items-center gap-x-3 font-semibold">
                     Supervisor
-
-                    <button>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-logout" width="22"
-                            height="22" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
-                            <path d="M9 12h12l-3 -3" />
-                            <path d="M18 15l3 -3" />
-                        </svg>
-                    </button>
+                    <form method="post" action="supervisor">
+                        <button type="submit" name="cerrar_sesion" value="Cerrar Sesión">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-logout" width="22"
+                                height="22" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
+                                <path d="M9 12h12l-3 -3" />
+                                <path d="M18 15l3 -3" />
+                            </svg>
+                        </button>
+                    </form>
                 </span>
             </div>
             <div class="flex flex-row gap-x-3 text-[#001459] font-semibold">

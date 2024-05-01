@@ -1,16 +1,28 @@
 <?php 
-	session_start();
-	require 'libreria/CrudEmpleado.php';
-	require 'libreria/CrudVehiculo.php';
-	require 'libreria/CobroTractoCamion.php';
-	require 'libreria/CobroCamioneta.php';
-	require 'libreria/CobroAutomovil.php';
+	require_once 'libreria/CrudEmpleado.php';
+	require_once 'libreria/CrudVehiculo.php';
+	require_once 'libreria/CobroTractoCamion.php';
+	require_once 'libreria/CobroCamioneta.php';
+	require_once 'libreria/CobroAutomovil.php';
 	// Objetos.
 	$c = new CrudEmpleado();
 	$v = new CrudVehiculo();
 	$empleados = $c->Read();
 	$vehiculos = $v->Read();
 
+	//Sesion...
+	if (!isset($_SESSION['user']) || $_SESSION['user'] !== 'Supervisor') {
+		controller('login');
+		exit;
+	}
+	
+	// Cerrar sesión
+	if(isset($_POST['cerrar_sesion'])) {
+		session_unset();
+		session_destroy();
+		controller('login');
+		exit;
+	}
 
 											//Codificación para el CRUD de los Empleados.
 	// Para Insertar y Modificar.
