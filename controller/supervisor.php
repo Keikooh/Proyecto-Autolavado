@@ -1,16 +1,28 @@
 <?php 
-	session_start();
-	require 'libreria/CrudEmpleado.php';
-	require 'libreria/CrudVehiculo.php';
-	require 'libreria/CobroTractoCamion.php';
-	require 'libreria/CobroCamioneta.php';
-	require 'libreria/CobroAutomovil.php';
+	require_once 'libreria/CrudEmpleado.php';
+	require_once 'libreria/CrudVehiculo.php';
+	require_once 'libreria/CobroTractoCamion.php';
+	require_once 'libreria/CobroCamioneta.php';
+	require_once 'libreria/CobroAutomovil.php';
 	// Objetos.
 	$c = new CrudEmpleado();
 	$v = new CrudVehiculo();
 	$empleados = $c->Read();
 	$vehiculos = $v->Read();
 
+	//Sesion...
+	if (!isset($_SESSION['user']) || $_SESSION['user'] !== 'Supervisor') {
+		controller('login');
+		exit;
+	}
+	
+	// Cerrar sesión
+	if(isset($_POST['cerrar_sesion'])) {
+		session_unset();
+		session_destroy();
+		controller('login');
+		exit;
+	}
 
 											//Codificación para el CRUD de los Empleados.
 	// Para Insertar y Modificar.
@@ -19,12 +31,7 @@
 	}
 	// Para eliminar.
 	if (isset($_POST['btnEliminarEmpleado']) && !isset($_POST['txtNombreEmpleado'])) {
-		$registro = $c->Delete($_POST['btnEliminarEmpleado']);
-		if ($registro) {
-			echo "success";
-		} else {
-			echo "error";
-		}
+		$c->Delete($_POST['btnEliminarEmpleado']);
 	}
 
 											//Codificación para el CRUD de los Vehiculos.
@@ -35,11 +42,6 @@
 	// Para eliminar.
 	if (isset($_POST['btnEliminarVehiculo']) && !isset($_POST['txtCliente'])) {
 		$registro = $v->Delete($_POST['btnEliminarVehiculo']);
-		if ($registro) {
-			echo "success";
-		} else {
-			echo "error";
-		}
 	}
 	//Codificaión para finalizar con el lavado.
 	if(isset($_POST['empleadoUno'], $_POST['empleadoDos'], $_POST['Placa'], $_POST['Observaciones'], $_POST['Tipo'])) {
@@ -57,7 +59,7 @@
 				$cobroTractoCamion->Cobrar($_POST['empleadoUno'], $_POST['empleadoDos'], $_POST['Placa'], $_POST['Observaciones']);
 				break;
 			default:
-				echo "No se recibieron datos.<br>";
+				echo "No se recibio Datos.<br>";
 				break;
 		}
 	}

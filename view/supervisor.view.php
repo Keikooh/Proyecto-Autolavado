@@ -8,17 +8,18 @@
                 <h1 class="text-[#001459] text-2xl font-bold">Dashboard</h1>
                 <span class="flex items-center gap-x-3 font-semibold">
                     Supervisor
-
-                    <button>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-logout" width="22"
-                            height="22" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
-                            <path d="M9 12h12l-3 -3" />
-                            <path d="M18 15l3 -3" />
-                        </svg>
-                    </button>
+                    <form method="post" action="supervisor">
+                        <button type="submit" name="cerrar_sesion" value="Cerrar Sesión">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-logout" width="22"
+                                height="22" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
+                                <path d="M9 12h12l-3 -3" />
+                                <path d="M18 15l3 -3" />
+                            </svg>
+                        </button>
+                    </form>
                 </span>
             </div>
             <div class="flex flex-row gap-x-3 text-[#001459] font-semibold">
@@ -156,7 +157,7 @@
             </div>
 
             <!-- Salario -->
-            <label for="">Salario por Porcentaje de Lavado (0.25 = 25%)</label>
+            <label for="">Salario por Porcentaje de Ganancia en Lavado (0.25 = 25%)</label>
             <div class="relative z-0 w-full mb-5 group">
                 <div class="absolute inset-y-0 start-0 top-0 flex items-center ps-3.5 pointer-events-none">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-coin" width="22"
@@ -368,11 +369,6 @@
                     if (result.isConfirmed) {
                         observaciones = result.value;
                         console.log('Observación guardada correctamente, gracias.');
-                        alert(placa);
-                        alert(tipo);
-                        alert(observaciones);
-                        alert(empleado[0]);
-                        alert(empleado[1]);
                         $.ajax({
                             url: 'supervisor',
                             method: 'POST',
@@ -531,10 +527,12 @@
                         data: { btnEliminarEmpleado: id }, // Aquí debes enviar el ID con una clave
                         success: function(response) {
                             // Eliminar al empleado de la lista si se elimina correctamente
-                            if (response === "success") {
-                                Swal.fire("Error", "Hubo un problema al eliminar el empleado", "error");
-                            } else {
+                            if (response) {
                                 Swal.fire("¡Eliminado!", "Empleado eliminado", "success").then(() => {
+                                    Actualizar();
+                                });
+                            } else {
+                                Swal.fire("¡Oh no!", "Ocurrio un error inesperado", "error").then(() => {
                                     Actualizar();
                                 });
                             }
@@ -687,10 +685,12 @@
                         type: "POST",
                         data: { btnEliminarVehiculo: id },
                         success: function(response) {
-                            if (response === "success") {
-                                Swal.fire("Error", "Hubo un problema al eliminar el vehiculo", "error");
-                            } else {
+                            if (response) {
                                 Swal.fire("¡Eliminado!", "Vehiculo eliminado", "success").then(() => {
+                                    Actualizar();
+                                });
+                            } else {
+                                Swal.fire("¡Oh no!", "Ocurrio un error inesperado", "error").then(() => {
                                     Actualizar();
                                 });
                             }
