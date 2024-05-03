@@ -48,14 +48,11 @@
         <hr class="bg-color-white">
 
         <main>
-            <form id="frmFiltrador" class="mb-8" action="admin" method="get">
+            <!--Formulario para filtrar los datos-->
+            <form id="frmFiltrador" class="mb-8" action="admin" method="post">
                 <div class="flex justify-between items-center">
                     <h2 class="text-[#001459] text-base font-bold mr-8">Lavados</h2>
                     <div class="flex items-center gap-x-3 text-[#001459] font-semibold mt-4 mb-4">
-                        <button class="bg-white border border-gray-300 hover:bg-gray-100 text-[#001459] font-bold py-2 px-4 rounded-full shadow-lg flex items-center transition-colors duration-300 ease-in-out">
-                            Generar reporte
-                            <img class="h-8 w-8 ml-2" src="images/report.png" alt="Empleado No. 1">
-                        </button>
                     </div>
                     <div class="flex items-center space-x-2">
                         <input type="checkbox" name="chkCliente" id="chkCliente" class="appearance-none w-4 h-4 border border-gray-300 rounded checked:bg-blue-400 checked:border-transparent">
@@ -85,6 +82,7 @@
                     </div>
                 </div>
             </form>
+            <!--Tabla donde se muestran los resultado-->
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
@@ -104,25 +102,20 @@
                     <?php echo $resultado ?>
                 </tbody>
             </table>
-
         </main>
 
 
 
         <script>
             $(document).ready(function() {
-                $('#txtBuscar').on('input', function() {
-                    // Envía el formulario
-                    alert('Texto');
-                });
-                // Agrega un manejador de eventos change a todos los elementos de formulario dentro de #myForm
-                $('#frmFiltrador :input').change(function() {
-                    // Envía el formulario
-                    alert('Texto');
-                    //$('#frmFiltrador').submit();
+                $('#frmFiltrador :input').on('input', function(e) {
+                    e.preventDefault();
+                    $.post("admin",function(e){
+                        $("#frmFiltrador").html(e);
+                    });
+                    //alert("Texto");
                 });
             });
-
             /*
             function uncheckOthers(id) {
                 // Obtener todas las casillas de verificación
