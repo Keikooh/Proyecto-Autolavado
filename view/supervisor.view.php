@@ -37,63 +37,10 @@
             <!-- Seccion de empleados -->
             <div class="flex w-[25%] flex-col gap-y-5">
                 <h3 class="text-[#001459] text-1xl font-semibold">Empleado</h3>
-                <ul id="empleados"
-                    class="flex flex-col gap-y-5 bg-white h-[420px] rounded-2xl p-4 shadow-lg overflow-auto">
+                <ul id="empleados"class="flex flex-col gap-y-5 bg-white h-[650px] rounded-2xl p-4 shadow-lg overflow-auto MostrarCARDS">
 
                     <!-- Ejemplos de tarjeta para empleado -->
-
-                    <li class="flex items-center gap-x-3 p-4 bg-[#E5E4EE] rounded-xl">
-                        <div class="color bg-indigo-400 size-5 rounded-full"></div>
-                        <div class="w-[90%]">
-                            <div class="flex  justify-between">
-                                <!-- Nombre del empleado -->
-                                <h3 class="lblEmpleado text-[#001459] font-bold">Chaires Lira</h3>
-                                <button class="btnEliminarEmpleado">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x"
-                                        width="22" height="22" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50"
-                                        fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path d="M18 6l-12 12" />
-                                        <path d="M6 6l12 12" />
-                                    </svg>
-                                </button>
-                            </div>
-                            <!-- Rol -->
-                            <p class="text-black/35 font-semibold text-sm">
-                                Encargado de lavado
-                            </p>
-                            <!-- Turno -->
-                            <p class="text-black/35 font-semibold text-sm">
-                                Turno matutino
-                            </p>
-                        </div>
-                    </li>
-                    <li class="flex items-center gap-x-3 p-4 bg-[#E5E4EE] rounded-xl">
-                        <div class="color bg-yellow-400 size-5 rounded-full"></div>
-                        <div class="w-[90%]">
-                            <div class="flex  justify-between">
-                                <!-- Nombre del empleado -->
-                                <h3 class="lblEmpleado text-[#001459] font-bold">Juan Miguel</h3>
-                                <button class="btnEliminarEmpleado">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x"
-                                        width="22" height="22" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50"
-                                        fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path d="M18 6l-12 12" />
-                                        <path d="M6 6l12 12" />
-                                    </svg>
-                                </button>
-                            </div>
-                            <!-- Rol -->
-                            <p class="text-black/35 font-semibold text-sm">
-                                Encargado de lavado
-                            </p>
-                            <!-- Turno -->
-                            <p class="text-black/35 font-semibold text-sm">
-                                Turno matutino
-                            </p>
-                        </div>
-                    </li>
+                    <?php echo $empleados; ?>
                 </ul>
             </div>
 
@@ -101,55 +48,18 @@
 
             <!-- Estacion de lavado -->
             <div class="flex w-[25%] flex-col gap-y-5">
-                <h3 class="text-[#001459] text-1xl font-semibold">Lavado</h3>
+                <h3 class="text-[#001459] text-1xl font-semibold">Lavado<span class="textoLavado"></span></h3>
                 <ul id="lavado"
-                    class="sorteable estaciones flex flex-col gap-y-5 bg-white h-[420px] rounded-2xl p-4 shadow-lg overflow-auto">
-
-                    <!-- Ejemplo de card para vehiculo -->
-                    <li class="flex items-center justify-between p-4 bg-[#E5E4EE] rounded-xl">
-                        <div>
-                            <!-- Cliente -->
-                            <h3 class="text-[#001459] font-bold">Sofía Martínez</h3>
-                            <div class="flex gap-x-2 items-center opacity-50">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-ad-filled"
-                                    width="22" height="22" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50"
-                                    fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                    <path
-                                        d="M19 4h-14a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h14a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3zm-10 4a3 3 0 0 1 2.995 2.824l.005 .176v4a1 1 0 0 1 -1.993 .117l-.007 -.117v-1h-2v1a1 1 0 0 1 -1.993 .117l-.007 -.117v-4a3 3 0 0 1 3 -3zm0 2a1 1 0 0 0 -.993 .883l-.007 .117v1h2v-1a1 1 0 0 0 -1 -1zm8 -2a1 1 0 0 1 .993 .883l.007 .117v6a1 1 0 0 1 -.883 .993l-.117 .007h-1.5a2.5 2.5 0 1 1 .326 -4.979l.174 .029v-2.05a1 1 0 0 1 .883 -.993l.117 -.007zm-1.41 5.008l-.09 -.008a.5 .5 0 0 0 -.09 .992l.09 .008h.5v-.5l-.008 -.09a.5 .5 0 0 0 -.318 -.379l-.084 -.023z"
-                                        stroke-width="0" fill="currentColor" />
-                                </svg>
-                                <!-- Placa -->
-                                <span class="font-semibold text-sm">JKC-34D-D1</span>
-                            </div>
-                            <p class="text-black/35 font-semibold text-sm">
-                                <!-- Modelo -->
-                                Land Rover Discovery
-                            </p>
-                            <p class="text-black/35 text-sm">
-                                <!-- Marca -->
-                                SD6 306 HSE
-                            </p>
-                        </div>
-
-                        <button>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots" width="22"
-                                height="22" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M5 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-                                <path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-                                <path d="M19 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-                            </svg>
-                        </button>
-                    </li>
+                    class="sorteable estaciones flex flex-col gap-y-5 bg-white h-[650px] rounded-2xl p-4 shadow-lg overflow-auto lavado">
+                    <!-- Ejemplos de tarjeta para vehiculo -->
+                    <?php echo $vehiculos; ?>
                 </ul>
             </div>
             <!-- Estacion de secado -->
             <div class="flex w-[25%] flex-col gap-y-5">
-                <h3 class="text-[#001459] text-1xl font-semibold">Secado</h3>
+                <h3 class="text-[#001459] text-1xl font-semibold">Secado<span class="textoSecado"></span></h3>
                 <ul id="secado"
-                    class="sorteable estaciones flex flex-col gap-y-5 bg-white h-[420px] rounded-2xl p-4 shadow-lg overflow-auto">
+                    class="sorteable estaciones flex flex-col gap-y-5 bg-white h-[650px] rounded-2xl p-4 shadow-lg overflow-auto secado">
 
                 </ul>
             </div>
@@ -158,7 +68,7 @@
             <div class="flex w-[25%] flex-col gap-y-5">
                 <h3 class="text-[#001459] text-1xl font-semibold">Completado</h3>
                 <ul id="completado"
-                    class="sorteable flex flex-col gap-y-5 bg-white h-[420px] rounded-2xl p-4 shadow-lg overflow-auto border-dashed border-2 border-green-400">
+                    class="sorteable flex flex-col gap-y-5 bg-white h-[650px] rounded-2xl p-4 shadow-lg overflow-auto border-dashed border-2 border-green-400">
 
                 </ul>
             </div>
@@ -185,7 +95,6 @@
         </div>
 
         <form class="max-w-md mt-10 mx-auto font-semibold">
-
             <!-- Nombre -->
             <div class="relative z-0 w-full mb-5 group">
                 <input type="text" name="txtNombreEmpleado" id="txtNombreEmpleado" class="
@@ -229,15 +138,16 @@
 
             <!-- Cargo -->
             <div class="relative z-0 w-full mb-5 group">
+                <label for="">Cargo</label>
                 <select id="txtCargo" name="txtCargo"
                     class="block pl-3 pr-10 py-2 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer">
-                    <option>Limpieza ventanas</option>
-                    <option>Limpieza puertas</option>
+                    <option>Lavado</option>
                 </select>
             </div>
 
             <!-- Turno -->
             <div class="relative z-0 w-full mb-5 group">
+                <label for="">Turno</label>
                 <select id="txtTurno" name="txtTurno"
                     class="block pl-3 pr-10 py-2 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer">
                     <option>Vespertino</option>
@@ -246,6 +156,7 @@
             </div>
 
             <!-- Salario -->
+            <label for="">Salario por Porcentaje de Lavado (0.25 = 25%)</label>
             <div class="relative z-0 w-full mb-5 group">
                 <div class="absolute inset-y-0 start-0 top-0 flex items-center ps-3.5 pointer-events-none">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-coin" width="22"
@@ -324,15 +235,23 @@
             <!-- Tipo -->
             <div class="relative z-0 w-full mb-5 group">
                 <label for="txtTipo">Tipo de vehículo</label>
-                <select
-                    id="txtTipo"
-                    name="txtTipo"
-                    class="block pl-3 pr-10 py-2 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer">
-                    <option>Automóvil</option>
-                    <option>Camión</option>
-                    <option>Motocicleta</option>
+                <select id="txtTipo" name="txtTipo" onchange="actualizarClasificacion(this.value)"
+                        class="block pl-3 pr-10 py-2 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer">
+                    <option value="Camioneta">Camioneta</option>
+                    <option value="Automovil">Automóvil</option>
+                    <option value="Tracto Camion">Tracto Camión</option>
                 </select>
-            </div>
+                </div>
+
+            <!-- Clasificación -->
+                <div class="relative z-0 w-full mb-5 group">
+                <input type="text" name="txtClasificacion" id="txtClasificacion"
+                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        placeholder=" " required />
+                <label for="txtClasificacion"
+                        class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                    Número de Puertas</label>
+                </div>
 
             <!-- Modelo -->
             <div class="relative z-0 w-full mb-5 group">
@@ -344,18 +263,6 @@
                 <label for="txtModelo"
                     class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                     Modelo</label>
-            </div>
-
-             <!-- Marca -->
-             <div class="relative z-0 w-full mb-5 group">
-                <input type="text"
-                    name="txtMarca"
-                    id="txtMarca"
-                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                    placeholder=" " required />
-                <label for="txtMarca"
-                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                    Marca</label>
             </div>
 
             <!-- Color -->
@@ -377,3 +284,429 @@
         </form>
     </div>
 </div>
+<script>  
+    // Componentes
+    const ventanaAgregarEmpleado = $('#frmAgregarEmpleado');
+    const ventanaAgregarVehiculo = $('#frmAgregarVehiculo');
+
+    // Funcion para remplazar clases
+    (function ($) {
+      $.fn.remplazarClases = function (prevClass, nextClass) {
+        if (this.hasClass(prevClass)) {
+          return this.removeClass(prevClass).addClass(nextClass);
+        } else return this.addClass(prevClass).removeClass(nextClass);
+      };
+    }(jQuery));
+
+    // Abrir o cerrar ventana para agregar empleados
+    $('#btnCloseAgregarEmpleado').click(function () {
+        ventanaAgregarEmpleado.remplazarClases('right-0', 'right-[-35%]');
+    });
+    $('#btnAgregarEmpleado').click(function () {
+        ventanaAgregarEmpleado.remplazarClases('right-0', 'right-[-35%]');
+        
+    });
+    $('#btnOpenAgregarEmpleado').click(function () {
+        ventanaAgregarEmpleado.remplazarClases('right-0', 'right-[-35%]');
+    })
+
+
+    // Abrir o cerrar ventana para agregar vehiculos
+    $('#btnCloseAgregarVehiculo').click(function () {
+        ventanaAgregarVehiculo.remplazarClases('right-0', 'right-[-35%]');
+    });
+    $('#btnAgregarVehiculo').click(function () {
+        ventanaAgregarVehiculo.remplazarClases('right-0', 'right-[-35%]');
+    });
+    $('#btnOpenAgregarVehiculo').click(function () {
+        ventanaAgregarVehiculo.remplazarClases('right-0', 'right-[-35%]');
+    })
+
+    // Tarjetas de empleados arrastrables
+    $(document).on('mouseover', '#empleados li', function () {
+      $(this).draggable({
+        revert: "invalid",
+        cursor: "move",
+        helper: "clone",
+        zIndex: 1000
+      });
+    });
+    const empleado=[];
+    // Listas sorteables
+    $("#lavado, #secado, #completado").sortable({
+        connectWith: ".sorteable",
+        placeholder: "w-full h-[120px] bg-gray-200/50 rounded-xl",
+        start: function () {
+            // Código de inicio, si es necesario
+        },
+        stop: function (event, ui) {
+            // Verifica si el elemento fue soltado en la estación de completado
+            if ($(ui.item).closest('#completado').length > 0) {
+                const placa = ui.item.find('#ePlaca').text();
+                const tipo = ui.item.find('#eTipo').text();
+                let observaciones = 'Ninguna';
+                //Aqui se almacenan los dos empleados que estaban presentes en las estaciones de lavado cuando se desempeño la tarea.
+                /*empleado[0]
+                empleado[1]*/
+                Swal.fire({
+                    title: "¿Deseas Agregar una Observación para este lavado antes de finalizarlo?",
+                    text: "Nota: Cualquier observación es de gran valor.",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "¡Sí, por favor!",
+                    cancelButtonText: "No, gracias",
+                    input: 'text',
+                    inputPlaceholder: 'Escribe tu observación aquí...',
+                    inputValidator: (value) => {
+                        if (!value) {
+                            return 'Debes ingresar una observación';
+                        }
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        observaciones = result.value;
+                        console.log('Observación guardada correctamente, gracias.');
+                        alert(placa);
+                        alert(tipo);
+                        alert(observaciones);
+                        alert(empleado[0]);
+                        alert(empleado[1]);
+                        $.ajax({
+                            url: 'supervisor',
+                            method: 'POST',
+                            data: {
+                                empleadoUno: empleado[0],
+                                empleadoDos: empleado[1],
+                                Placa: placa,
+                                Observaciones: observaciones,
+                                Tipo: tipo,
+                            },
+                            success: function (response) {
+                                Swal.fire("Proceso finalizado exitosamente.", "Confirma este mensaje para cerrar.")
+                                    .then((result) => {
+                                        if (result.isConfirmed) {
+                                            //Actualizar();
+                                        }
+                                });
+                            },
+                            error: function (xhr, status, error) {
+                                Swal.fire("Error", "Hubo un problema al finalizar el lavado, por favor consulta con el administrador.", "error");
+                            }
+                        });
+                    }
+                });
+            }
+        },
+    });
+
+
+
+    // Cambios en los bordes al soltar las tarjetas de los empleados a las estaciones
+    $(".estaciones").droppable({
+        drop: function (event, ui) {
+            var color = ui.draggable.find(".color").css("background-color");
+            $(this).addClass("border-4").css("border-color", color);
+            var nombreEmpleado = ui.draggable.find('#eNombre').text();
+            var $textoSpan;
+            if ($(this).hasClass("lavado")) {
+                $textoSpan = $('.textoLavado');
+                empleado[0] = ui.draggable.find('.btnEliminarEmpleado').val();
+            } else if ($(this).hasClass("secado")) {
+                $textoSpan = $('.textoSecado');
+                empleado[1] = ui.draggable.find('.btnEliminarEmpleado').val(); 
+            }
+            // Eliminar el contenido actual del span
+            $textoSpan.empty();
+            // Agregar el nuevo texto al span y aplicarle el color del borde
+            $("<span>").text(' Administrado por ' + nombreEmpleado).appendTo($textoSpan).css("color", color);
+        }
+    });
+
+    //  EMPLEADO /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    let accion='agregar';
+    let id;
+    // Agregar
+    $("#btnAgregarEmpleado").click(function () {
+        event.preventDefault();
+        const nombre = $('#txtNombreEmpleado').val();
+        const color = $('#txtColor').val(); 
+        const cargo = $('#txtCargo').val();
+        const turno = $('#txtTurno').val();
+        const salario = $('#txtSalario').val();
+        if(accion==='agregar')
+        {
+            enviarDatosEmpleado(-1, nombre, color, cargo, turno, salario);
+        }
+        else if(accion==='modificar')
+        {
+            enviarDatosEmpleado(id, nombre, color, cargo, turno, salario);
+            accion='agregar';
+        }
+        $('#txtNombreEmpleado').val('');
+        $('#txtColor').val('');
+        $('#txtCargo').val('');
+        $('#txtTurno').val('');
+        $('#txtSalario').val('');
+    });
+
+    // Modificar
+    $(document).on('dblclick', '.Modificar', function() {
+        ventanaAgregarEmpleado.remplazarClases('right-0', 'right-[-35%]');
+        accion = 'modificar'; 
+        id = $(this).data('id');
+        const nombre = $(this).find('#eNombre').text();
+        const color = $(this).find('#eColor').css('background-color');
+        const cargo = $(this).find('#eCargo').text();
+        const turno = $(this).find('#eTurno').text();
+        const salario = $(this).find('#eSalario').text();
+        // Asignar los valores a los campos del formulario
+        $('#txtNombreEmpleado').val(nombre);
+        $('#txtColor').val(tinycolor(color).toHexString());
+        $('#txtCargo').val(cargo);
+        $('#txtTurno').val(turno);
+        $('#txtSalario').val(salario);
+    });
+
+
+    function enviarDatosEmpleado(id, nombre, color, cargo, turno, salario) {
+        $.ajax({
+            url: 'supervisor',
+            method: 'POST',
+            data: {
+                btnEliminarEmpleado: id,
+                txtNombreEmpleado: nombre,
+                txtCargo: cargo,
+                txtTurno: turno,
+                txtSalario: salario,
+                txtColor: color 
+            },
+            success: function (response) {
+                if (accion === 'agregar') {
+                    Swal.fire("Empleado Guardado / Modificado", "Empleado guardado / modificado exitosamente.", "success")
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            Actualizar();
+                        }
+                    });
+                } else if (accion === 'modificar') {
+                    Swal.fire("Empleado Modificado / Guardado", "Empleado modificado / guardado exitosamente.", "success")
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            Actualizar();
+                        }
+                    });
+                }
+            },
+            error: function (xhr, status, error) {
+                if (accion === 'agregar') {
+                    Swal.fire("Error", "Hubo un problema al agregar el empleado", "error");
+                } else {
+                    Swal.fire("Error", "Hubo un problema al modificar el empleado", "error");
+                }
+            }
+        });
+    }
+
+    //Eliminar
+    $(document).ready(function() {
+        $(document).on('click', '.btnEliminarEmpleado', function () {
+            const id = $(this).data('id'); 
+            Swal.fire({
+                title: "¿Estás seguro de eliminar?",
+                text: "¡No podrás revertir esto!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "¡Sí, elimínalo!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Realizar la petición AJAX para eliminar al empleado
+                    $.ajax({
+                        url: "supervisor", // Ruta al controlador que maneja la eliminación
+                        type: "POST",
+                        data: { btnEliminarEmpleado: id }, // Aquí debes enviar el ID con una clave
+                        success: function(response) {
+                            // Eliminar al empleado de la lista si se elimina correctamente
+                            if (response === "success") {
+                                Swal.fire("Error", "Hubo un problema al eliminar el empleado", "error");
+                            } else {
+                                Swal.fire("¡Eliminado!", "Empleado eliminado", "success").then(() => {
+                                    Actualizar();
+                                });
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(xhr.responseText);
+                            Swal.fire("Error", "Hubo un problema al eliminar el empleado", "error");
+                        }
+                    });
+                }
+            });
+        });
+    });
+
+    //  VEHICULO /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    //Para el cambio de tipo.
+    $('#txtTipo').change(function() {
+        const tipoVehiculo = $('#txtTipo').val();
+        const inputClasificacion = $('#txtClasificacion');
+        const labelClasificacion = $('#txtClasificacion + label');
+
+        if (tipoVehiculo === 'Automovil') {
+            inputClasificacion.val('No Aplica en Automóviles');
+            inputClasificacion.prop('disabled', true);
+        } 
+        else {
+            inputClasificacion.prop('disabled', false);
+        }
+        if (tipoVehiculo === 'Tracto Camion') {
+            inputClasificacion.val('');
+            labelClasificacion.text('Dimensión del Tracto Camión');
+        } 
+        else if (tipoVehiculo === 'Camioneta') {
+            inputClasificacion.val('');
+            labelClasificacion.text('Número de Puertas');
+        } 
+        else {
+            labelClasificacion.text('Clasificación');
+        }
+    });
+
+    // Agregar
+    $("#btnAgregarVehiculo").click(function () {
+        event.preventDefault();
+        const placa = $('#txtPlaca').val();
+        const cliente = $('#txtCliente').val();
+        let clasificacion='';
+        if ($('#txtTipo').val() === 'Automovil') {
+            clasificacion = '0';
+        } else{
+            clasificacion = $('#txtClasificacion').val();
+        }
+        const tipo = $('#txtTipo').val();
+        const modelo = $('#txtModelo').val();
+        const color = $('#txtColorVehiculo').val(); 
+        if(accion==='agregar')
+        {
+            enviarDatosVehiculo(placa, cliente,tipo, clasificacion, modelo, color);
+        }
+        else if(accion==='modificar')
+        {
+            enviarDatosVehiculo(placa, cliente,tipo, clasificacion, modelo, color);
+            accion='agregar';
+        }
+        $('#txtPlaca').val('');
+        $('#txtCliente').val('');
+        $('#txtTipo').val('');
+        $('#txtClasificacion').val('');
+        $('#txtModelo').val('');
+        $('#txtColorVehiculo').val('');
+    });
+
+    // Modificar
+    $(document).on('dblclick', '.Modificar', function() {
+        ventanaAgregarVehiculo.remplazarClases('right-0', 'right-[-35%]');
+        accion = 'modificar'; 
+        const placa =$(this).find('#ePlaca').text();
+        const cliente = $(this).find('#eCliente').text();
+        const tipo = $(this).find('#eTipo').text();
+        const clasificacion = $(this).find('#eClasificacion').text();
+        const modelo = $(this).find('#eModelo').text();
+        const color = $(this).find('#eColorVehiculo').text();
+        // Asignar los valores a los campos del formulario
+        $('#txtPlaca').val(placa);
+        $('#txtPlaca').prop('disabled', true);
+        $('#txtCliente').val(cliente);
+        $('#txtTipo').val(tipo);
+        $('#txtClasificacion').val(clasificacion);
+        $('#txtModelo').val(modelo);
+        $('#txtColorVehiculo').val(color);
+    });
+
+
+    function enviarDatosVehiculo(placa, cliente,tipo, clasificacion, modelo, color) {
+        $.ajax({
+            url: 'supervisor',
+            method: 'POST',
+            data: {
+                txtPlaca: placa,
+                txtCliente: cliente,
+                txtTipo: tipo,
+                txtClasificacion: clasificacion,
+                txtModelo: modelo,
+                txtColorVehiculo: color 
+            },
+            success: function (response) {
+                if (accion === 'agregar') {
+                    Swal.fire("Vehiculo Guardado / Modificado", "Vehiculo Guardado / Modificado exitosamente.", "success")
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            Actualizar();
+                        }
+                    });
+                } else if (accion === 'modificar') {
+                    Swal.fire("Vehiculo Guardado / Modificado", "Vehiculo Guardado / Modificado exitosamente.", "success")
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            Actualizar();
+                        }
+                    });
+                }
+            },
+            error: function (xhr, status, error) {
+                if (accion === 'agregar') {
+                    Swal.fire("Error", "Hubo un problema al agregar el vehiculo", "error");
+                } else {
+                    Swal.fire("Error", "Hubo un problema al modificar el vehiculo", "error");
+                }
+            }
+        });
+    }
+
+    //Eliminar
+    $(document).ready(function() {
+        $(document).on('click', '.btnEliminarVehiculo', function () {
+            const id = $(this).data('id'); 
+            Swal.fire({
+                title: "¿Estás seguro de eliminar?",
+                text: "¡No podrás revertir esto!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "¡Sí, elimínalo!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "supervisor",
+                        type: "POST",
+                        data: { btnEliminarVehiculo: id },
+                        success: function(response) {
+                            if (response === "success") {
+                                Swal.fire("Error", "Hubo un problema al eliminar el vehiculo", "error");
+                            } else {
+                                Swal.fire("¡Eliminado!", "Vehiculo eliminado", "success").then(() => {
+                                    Actualizar();
+                                });
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(xhr.responseText);
+                            Swal.fire("Error", "Hubo un problema al eliminar el vehiculo", "error");
+                        }
+                    });
+                }
+            });
+        });
+    });
+
+    //Actualizar.
+    function Actualizar() {
+      location.reload(true);
+    }
+  </script>
