@@ -1,6 +1,6 @@
 <?php 
 require 'helpers.php';
-$pagina = 'admin';
+$pagina = 'login';
 if(isset($_GET['pagina']))
 {
 	$pagina = $_GET['pagina'];

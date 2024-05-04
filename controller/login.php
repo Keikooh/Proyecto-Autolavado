@@ -8,7 +8,7 @@
                 controller('supervisor');
                 exit;
             case 'Administrador':
-                //controller('administrador');
+                controller('admin');
                 exit;
             default:
                 controller('default');
@@ -32,7 +32,7 @@
                 exit;
             } else if ($_POST['txtCargo'] === "Administrador") {
                 $_SESSION['user_type'] = "Administrador";
-                controller('administrador');
+                controller('admin');
                 exit;
             }
         } else {

@@ -61,38 +61,44 @@ class AccesoDatosAdministrador
         return (float)$ganancias;
     }
 
-    public function obtenerReportes($fechaInicio,$fechaFinal,$isCliente,$isEmpleado,$isVehiculo){
-        $con = new mysqli(s,u,p,bd);
+    public function obtenerReportes($fechaInicio, $fechaFinal, $filtro, $isEmpleado, $isCliente, $isVehiculo)
+    {
+        $con = new mysqli(s, u, p, bd);
         $query = $con->set_charset("utf8");
-        $query= $con->stmt_init();
-        
-        echo $fechaInicio;
-        $query->prepare("CALL pConsultarReportes(NULL,NULL, '')");
-        
+        $query = $con->stmt_init();
 
-        
+        echo $fechaInicio;
+        $query->prepare("CALL pConsultarReportes(?,?,?,?,?,?);");
+        $query->bind_param('ssssss', $fechaInicio, $fechaFinal, $filtro, $isEmpleado, $isCliente, $isVehiculo);
         $query->execute();
-        $query->bind_result($factura,$empleado,$placa,$cliente,$tipo,$modelo,$color,$fecha,$costo,$observaciones);
-        $rs='';
-        
+        $query->bind_result($factura, $empleadoUno, $empleadoDos, $cliente, $placa, $tipo, $modelo, $color, $observaciones, $fecha, $costo);
+        $rs = '';
+
         while ($query->fetch()) {
-            $rs.='
+            $rs .= '
             <tr>
-                <td class="px-6 py-4 whitespace-nowrap">'.sprintf("FACT-%05d", $factura).'</td>
-                <td class="px-6 py-4 whitespace-nowrap">'.$empleado.'</td>
-                <td class="px-6 py-4 whitespace-nowrap">'.$cliente.'</td>
-                <td class="px-6 py-4 whitespace-nowrap">'.$placa.'</td>
-                <td class="px-6 py-4 whitespace-nowrap">'.$tipo.'</td>
-                <td class="px-6 py-4 whitespace-nowrap">'.$modelo.'</td>
-                <td class="px-6 py-4 whitespace-nowrap">'.$color.'</td>
-                <td class="px-6 py-4 whitespace-nowrap">'.$observaciones.'</td>
-                <td class="px-6 py-4 whitespace-nowrap">'.date('d/m/Y', strtotime($fecha)).'</td>
-                <td class="px-6 py-4 whitespace-nowrap">'.$costo.'</td>
+                <td class="px-6 py-4 whitespace-nowrap">' . sprintf("FACT-%05d", $factura) . '</td>
+                <td class="px-6 py-4 whitespace-nowrap">' . $empleadoUno . '</td>
+                <td class="px-6 py-4 whitespace-nowrap">' . $empleadoDos . '</td>
+                <td class="px-6 py-4 whitespace-nowrap">' . $cliente . '</td>
+                <td class="px-6 py-4 whitespace-nowrap">' . $placa . '</td>
+                <td class="px-6 py-4 whitespace-nowrap">' . $tipo . '</td>
+                <td class="px-6 py-4 whitespace-nowrap">' . $modelo . '</td>
+                <td class="px-6 py-4 whitespace-nowrap">' . $color . '</td>
+                <td class="px-6 py-4 whitespace-nowrap">' . $observaciones . '</td>
+                <td class="px-6 py-4 whitespace-nowrap">' . date('d/m/Y', strtotime($fecha)) . '</td>
+                <td class="px-6 py-4 whitespace-nowrap">' . $costo . '</td>
             </tr>
             ';
         }
 
         $query->close();
-        return $rs;
+        return ($rs == '') ? '
+                                <tr>
+                                    <td colspan="11" class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-500">
+                                        No se encontraron registros.
+                                    </td>
+                                </tr>
+                            ' : $rs;
     }
 }

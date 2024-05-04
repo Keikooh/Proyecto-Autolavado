@@ -1,27 +1,22 @@
 <?php
-require 'config.php';
+//require 'config.php';
 require 'libreria/accesodatos/AccesoDatosAdministrador.php';
 
-
-session_start();
 $p = array();
 
 $accesoDatos = AccesoDatosAdministrador::obtenerInstancia();
+// Cerrar sesión
+if (isset($_POST['cerrar_sesion'])) {
+    session_unset();
+    //session_destroy();
+    controller('login');
+    exit;
+}
 
 $p['empleadoDia'] = $accesoDatos->obtenerEmpleadoDia();
-$p['total']=$accesoDatos->obtenerTotalLavados();
-$p['ganancias']=$accesoDatos->obtenerGananciasDia();
+$p['total'] = $accesoDatos->obtenerTotalLavados();
+$p['ganancias'] = $accesoDatos->obtenerGananciasDia();
 
-$fechaInicio = isset($_POST['txtFechaInicio']) ? $_POST['txtFechaInicio']:null;
-$fechaFinal = isset($_POST['txtFechaFinal']) ? $_POST['txtFechaFinal']:null;
-
-$isCliente = isset($_POST['chkCliente']) ? $_POST['chkCliente']:null;
-$isEmpleado = isset($_POST['chkEmpleado']) ? $_POST['chkEmpleado']:null;
-$isVehiculo = isset($_POST['chkVehiculo']) ? $_POST['chkVehiculo']:null;
-
-$filtro = isset($_POST['txtBuscar']) ? $_POST['txtBuscar']:'';
-
-
-$p['resultado']=$accesoDatos->obtenerReportes($fechaInicio,$fechaFinal,$isCliente,$isEmpleado,$isVehiculo,$filtro);
+$p['resultado']=$accesoDatos->obtenerReportes(NULL,NULL,'',true,true,true);
 
 View('admin', $p);

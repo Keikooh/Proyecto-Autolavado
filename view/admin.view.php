@@ -19,14 +19,16 @@
                 <h1 class="text-[#001459] text-2xl font-bold">Reportes</h1>
                 <span class="flex items-center gap-x-3 font-semibold">
                     Administrador
-                    <button>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-logout" width="22" height="22" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
-                            <path d="M9 12h12l-3 -3" />
-                            <path d="M18 15l3 -3" />
-                        </svg>
-                    </button>
+                    <form action="admin" method="post">
+                        <button type="submit" name="cerrar_sesion" value="Cerrar Sesión">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-logout" width="22" height="22" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
+                                <path d="M9 12h12l-3 -3" />
+                                <path d="M18 15l3 -3" />
+                            </svg>
+                        </button>
+                    </form>
                 </span>
             </div>
 
@@ -87,7 +89,8 @@
                 <thead class="bg-gray-50">
                     <tr>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Factura</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Empleado</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Empleado 1</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Empleado 2</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cliente</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Placa</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tipo</th>
@@ -110,8 +113,21 @@
             $(document).ready(function() {
                 $('#frmFiltrador :input').on('input', function(e) {
                     e.preventDefault();
-                    $.post("admin",function(e){
-                        $("#frmFiltrador").html(e);
+                    let txtFechaInicio = $("#txtFechaInicio").val();
+                    let txtFechaFinal = $("#txtFechaFinal").val();
+                    let txtBuscar = $("#txtBuscar").val();
+                    let chkEmpleado = $("#chkEmpleado").prop("checked");
+                    let chkCliente = $("#chkCliente").prop("checked");
+                    let chkVehiculo = $("#chkVehiculo").prop("checked");
+                    $.post("accionesAdmin",{
+                        txtFechaInicio,
+                        txtFechaFinal,
+                        txtBuscar,
+                        chkEmpleado,
+                        chkCliente,
+                        chkVehiculo
+                    }, function(resultado) {
+                        $("tbody").html(resultado);
                     });
                     //alert("Texto");
                 });
