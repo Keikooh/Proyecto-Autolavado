@@ -67,9 +67,9 @@
 
             <!-- Estacion de completado -->
             <div class="flex w-[25%] flex-col gap-y-5">
-                <h3 class="text-[#001459] text-1xl font-semibold">Completado</h3>
+                <h3 class="text-[#001459] text-1xl font-semibold">Completado</h3><button id="btnLimpiar" class="border-dashed border-2 border-red-400 bg-white rounded-xl px-5 py-2 text-center shadow-lg"  style="color: black; background-color: white; border-color: #ccc; transition: background-color 0.3s;" onmouseover="this.style.backgroundColor='#F55555'; this.style.color='white';" onmouseout="this.style.backgroundColor='white'; this.style.color='black';">Limpiar Finalizados</button>
                 <ul id="completado"
-                    class="sorteable flex flex-col gap-y-5 bg-white h-[650px] rounded-2xl p-4 shadow-lg overflow-auto border-dashed border-2 border-green-400">
+                    class="sorteable flex flex-col gap-y-5 bg-white h-[590px] rounded-2xl p-4 shadow-lg overflow-auto border-dashed border-2 border-green-400">
 
                 </ul>
             </div>
@@ -299,6 +299,11 @@
       };
     }(jQuery));
 
+    //Limpiar
+    $('#btnLimpiar').click(function () {
+        Actualizar();
+    });
+
     // Abrir o cerrar ventana para agregar empleados
     $('#btnCloseAgregarEmpleado').click(function () {
         ventanaAgregarEmpleado.remplazarClases('right-0', 'right-[-35%]');
@@ -345,54 +350,95 @@
             if ($(ui.item).closest('#completado').length > 0) {
                 const placa = ui.item.find('#ePlaca').text();
                 const tipo = ui.item.find('#eTipo').text();
-                let observaciones = 'Ninguna';
+                let observaciones = 'Ninguno';
                 //Aqui se almacenan los dos empleados que estaban presentes en las estaciones de lavado cuando se desempeño la tarea.
                 /*empleado[0]
                 empleado[1]*/
-                Swal.fire({
-                    title: "¿Deseas Agregar una Observación para este lavado antes de finalizarlo?",
-                    text: "Nota: Cualquier observación es de gran valor.",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "¡Sí, por favor!",
-                    cancelButtonText: "No, gracias",
-                    input: 'text',
-                    inputPlaceholder: 'Escribe tu observación aquí...',
-                    inputValidator: (value) => {
-                        if (!value) {
-                            return 'Debes ingresar una observación';
+                // Verifica si no hay información en las posiciones 0 y 1 del arreglo empleado
+                if (empleado[0] === undefined || empleado[1] === undefined || empleado[0] === "" || empleado[1] === "") {
+                    Swal.fire({
+                        title: "¡ATENCIÓN!",
+                        text: "Es necesario asignar un empleado para cada área de lavado.",
+                        icon: "info",
+                        confirmButtonColor: "#3085d6",
+                        confirmButtonText: "Aceptar"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Actualizar();
                         }
-                    }
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        observaciones = result.value;
-                        console.log('Observación guardada correctamente, gracias.');
-                        $.ajax({
-                            url: 'supervisor',
-                            method: 'POST',
-                            data: {
-                                empleadoUno: empleado[0],
-                                empleadoDos: empleado[1],
-                                Placa: placa,
-                                Observaciones: observaciones,
-                                Tipo: tipo,
-                            },
-                            success: function (response) {
-                                Swal.fire("Proceso finalizado exitosamente.", "Confirma este mensaje para cerrar.")
-                                    .then((result) => {
-                                        if (result.isConfirmed) {
-                                            //Actualizar();
-                                        }
-                                });
-                            },
-                            error: function (xhr, status, error) {
-                                Swal.fire("Error", "Hubo un problema al finalizar el lavado, por favor consulta con el administrador.", "error");
+                    });
+                } else {
+                    // Continúa con el flujo normal
+                    Swal.fire({
+                        title: "¿Deseas Agregar una Observación para este lavado antes de finalizarlo?",
+                        text: "Nota: Cualquier observación es de gran valor.",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "¡Sí, por favor!",
+                        cancelButtonText: "No, gracias",
+                        input: 'text',
+                        inputPlaceholder: 'Escribe tu observación aquí...',
+                        inputValidator: (value) => {
+                            if (!value) {
+                                return 'Debes ingresar una observación';
                             }
-                        });
-                    }
-                });
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            observaciones = result.value;
+                            console.log('Observación guardada correctamente, gracias.');
+                            $.ajax({
+                                url: 'supervisor',
+                                method: 'POST',
+                                data: {
+                                    empleadoUno: empleado[0],
+                                    empleadoDos: empleado[1],
+                                    Placa: placa,
+                                    Observaciones: observaciones,
+                                    Tipo: tipo,
+                                },
+                                success: function (response) {
+                                    Swal.fire("Proceso finalizado exitosamente.", "Confirma este mensaje para cerrar.")
+                                        .then((result) => {
+                                            if (result.isConfirmed) {
+                                                //Actualizar();
+                                            }
+                                    });
+                                },
+                                error: function (xhr, status, error) {
+                                    Swal.fire("Error", "Hubo un problema al finalizar el lavado, por favor consulta con el administrador.", "error");
+                                }
+                            });
+                        }
+                        else{
+                            $.ajax({
+                                url: 'supervisor',
+                                method: 'POST',
+                                data: {
+                                    empleadoUno: empleado[0],
+                                    empleadoDos: empleado[1],
+                                    Placa: placa,
+                                    Observaciones: observaciones,
+                                    Tipo: tipo,
+                                },
+                                success: function (response) {
+                                    Swal.fire("Proceso finalizado exitosamente.", "Confirma este mensaje para cerrar.")
+                                        .then((result) => {
+                                            if (result.isConfirmed) {
+                                                //Actualizar();
+                                            }
+                                    });
+                                },
+                                error: function (xhr, status, error) {
+                                    Swal.fire("Error", "Hubo un problema al finalizar el lavado, por favor consulta con el administrador.", "error");
+                                }
+                            });
+                        }
+                    });
+                }
+
             }
         },
     });
@@ -400,23 +446,27 @@
 
 
     // Cambios en los bordes al soltar las tarjetas de los empleados a las estaciones
-    $(".estaciones").droppable({
+    $("#lavado,#secado").droppable({
         drop: function (event, ui) {
             var color = ui.draggable.find(".color").css("background-color");
             $(this).addClass("border-4").css("border-color", color);
             var nombreEmpleado = ui.draggable.find('#eNombre').text();
             var $textoSpan;
-            if ($(this).hasClass("lavado")) {
+            if ($(this).hasClass("lavado")&&nombreEmpleado!="") {
                 $textoSpan = $('.textoLavado');
                 empleado[0] = ui.draggable.find('.btnEliminarEmpleado').val();
-            } else if ($(this).hasClass("secado")) {
+                // Eliminar el contenido actual del span
+                $textoSpan.empty();
+                // Agregar el nuevo texto al span y aplicarle el color del borde
+                $("<span>").text(' Administrado por ' + nombreEmpleado).appendTo($textoSpan).css("color", color);
+            } else if ($(this).hasClass("secado")&&nombreEmpleado!="") {
                 $textoSpan = $('.textoSecado');
                 empleado[1] = ui.draggable.find('.btnEliminarEmpleado').val(); 
+                // Eliminar el contenido actual del span
+                $textoSpan.empty();
+                // Agregar el nuevo texto al span y aplicarle el color del borde
+                $("<span>").text(' Administrado por ' + nombreEmpleado).appendTo($textoSpan).css("color", color);
             }
-            // Eliminar el contenido actual del span
-            $textoSpan.empty();
-            // Agregar el nuevo texto al span y aplicarle el color del borde
-            $("<span>").text(' Administrado por ' + nombreEmpleado).appendTo($textoSpan).css("color", color);
         }
     });
 

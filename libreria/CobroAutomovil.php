@@ -1,4 +1,5 @@
 <?php
+    date_default_timezone_set('America/Mexico_City');
     require_once 'IFacturacion.php';
     require_once 'config.php';
     class CobroAutomovil implements IFacturacion
