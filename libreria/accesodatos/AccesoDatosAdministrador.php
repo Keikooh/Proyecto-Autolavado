@@ -67,7 +67,6 @@ class AccesoDatosAdministrador
         $query = $con->set_charset("utf8");
         $query = $con->stmt_init();
 
-        echo $fechaInicio;
         $query->prepare("CALL pConsultarReportes(?,?,?,?,?,?);");
         $query->bind_param('ssssss', $fechaInicio, $fechaFinal, $filtro, $isEmpleado, $isCliente, $isVehiculo);
         $query->execute();
@@ -75,39 +74,35 @@ class AccesoDatosAdministrador
         $rs = '';
 
         while ($query->fetch()) {
-            $rs .= '
-            <tr>
-                <td class="px-6 py-4 whitespace-nowrap">' . sprintf("FACT-%05d", $factura) . '</td>
-                <td class="px-6 py-4 whitespace-nowrap">' . $empleadoUno . '</td>
-                <td class="px-6 py-4 whitespace-nowrap">' . $empleadoDos . '</td>
-                <td class="px-6 py-4 whitespace-nowrap">' . $cliente . '</td>
-                <td class="px-6 py-4 whitespace-nowrap">' . $placa . '</td>
-                <td class="px-6 py-4 whitespace-nowrap">' . $tipo . '</td>
-                <td class="px-6 py-4 whitespace-nowrap">' . $modelo . '</td>
-                <td class="px-6 py-4 whitespace-nowrap">' . $color . '</td>
-                <td class="px-6 py-4 whitespace-nowrap">' . $observaciones . '</td>
-                <td class="px-6 py-4 whitespace-nowrap">' . date('d/m/Y', strtotime($fecha)) . '</td>
-                <td class="px-6 py-4 whitespace-nowrap">' . $costo . '</td>
-            </tr>
-            ';
+            // Construye el HTML para cada fila de la tabla
+            $rs .= '<tr>';
+            $rs .= '<td class="px-6 py-4 whitespace-nowrap">' . sprintf("FACT-%05d", $factura) . '</td>';
+            $rs .= '<td class="px-6 py-4 whitespace-nowrap">' . $empleadoUno . '</td>';
+            $rs .= '<td class="px-6 py-4 whitespace-nowrap">' . $empleadoDos . '</td>';
+            $rs .= '<td class="px-6 py-4 whitespace-nowrap">' . $cliente . '</td>';
+            $rs .= '<td class="px-6 py-4 whitespace-nowrap">' . $placa . '</td>';
+            $rs .= '<td class="px-6 py-4 whitespace-nowrap">' . $tipo . '</td>';
+            $rs .= '<td class="px-6 py-4 whitespace-nowrap">' . $modelo . '</td>';
+            $rs .= '<td class="px-6 py-4 whitespace-nowrap">' . $color . '</td>';
+            $rs .= '<td class="px-6 py-4 whitespace-nowrap">' . $observaciones . '</td>';
+            $rs .= '<td class="px-6 py-4 whitespace-nowrap">' . date('d/m/Y', strtotime($fecha)) . '</td>';
+            $rs .= '<td class="px-6 py-4 whitespace-nowrap">' . $costo . '</td>';
+            $rs .= '</tr>';
         }
 
         $query->close();
-        return ($rs == '') ? '
-                                <tr>
-                                    <td colspan="11" class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-500">
-                                        No se encontraron registros.
-                                    </td>
-                                </tr>
-                            ' : $rs;
+
+        // No agregues ningún mensaje de "No se encontraron registros" aquí
+
+        return $rs;
     }
+
     public function sueldoEmpleados($fechaInicio, $fechaFinal)
     {
         $con = new mysqli(s, u, p, bd);
         $query = $con->set_charset("utf8");
         $query = $con->stmt_init();
 
-        echo $fechaInicio;
         $query->prepare("CALL pConsultarGananciasEmpleadosFechas(?,?);");
         $query->bind_param('ss', $fechaInicio, $fechaFinal);
         $query->execute();
@@ -115,23 +110,19 @@ class AccesoDatosAdministrador
         $rs = '';
 
         while ($query->fetch()) {
-            $rs .= '
-            <tr>
-                <td class="px-6 py-4 whitespace-nowrap">' . $id . '</td>
-                <td class="px-6 py-4 whitespace-nowrap">' . $nombre . '</td>
-                <td class="px-6 py-4 whitespace-nowrap">' . $cargo . '</td>
-                <td class="px-6 py-4 whitespace-nowrap">$' . $salario . '</td>
-            </tr>
-            ';
+            // Construye el HTML para cada fila de la tabla
+            $rs .= '<tr>';
+            $rs .= '<td class="px-6 py-4 whitespace-nowrap">EMP_' . $id . '</td>';
+            $rs .= '<td class="px-6 py-4 whitespace-nowrap">' . $nombre . '</td>';
+            $rs .= '<td class="px-6 py-4 whitespace-nowrap">' . $cargo . '</td>';
+            $rs .= '<td class="px-6 py-4 whitespace-nowrap">$' . $salario . '</td>';
+            $rs .= '</tr>';
         }
 
         $query->close();
-        return ($rs == '') ? '
-                                <tr>
-                                    <td colspan="11" class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-500">
-                                        No se encontraron registros.
-                                    </td>
-                                </tr>
-                            ' : $rs;
+
+        // No agregues ningún mensaje de "No se encontraron registros" aquí
+
+        return $rs;
     }
 }

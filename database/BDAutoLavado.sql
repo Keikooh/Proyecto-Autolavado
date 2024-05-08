@@ -287,20 +287,13 @@ CREATE PROCEDURE pConsultarGananciasEmpleadosFechas(
     IN p_FechaFin DATE
 )
 BEGIN
-    IF p_FechaInicio IS NULL OR p_FechaFin IS NULL THEN
-   	 SELECT IdEmpleado, Nombre, Cargo, SUM(Salario) AS TotalSalario
-			FROM (
-			    SELECT IdEmpleado, Nombre, Cargo, SalarioEmpleadoUno AS Salario
-			    FROM Empleado e
-			    JOIN Lavado l ON e.IdEmpleado = l.fkidempleadoUno
-			    UNION ALL
-			    SELECT IdEmpleado, Nombre, Cargo, SalarioEmpleadoDos AS Salario
-			    FROM Empleado e
-			    JOIN Lavado l ON e.IdEmpleado = l.fkidempleadoDos
-			) AS SalariosTotales
-			GROUP BY IdEmpleado, Nombre, Cargo;
-    ELSE
-	 	SELECT IdEmpleado, Nombre, Cargo, SUM(Salario) AS TotalSalario
+	IF p_FechaInicio IS NULL THEN
+   	SET p_FechaInicio = CURDATE();
+   END IF;
+   IF p_FechaFin IS NULL THEN
+   	SET p_FechaFin = CURDATE();
+   END IF;
+   SELECT IdEmpleado, Nombre, Cargo, SUM(Salario) AS TotalSalario
     	FROM (
         SELECT IdEmpleado, Nombre, Cargo, SalarioEmpleadoUno AS Salario
         FROM Empleado e
@@ -313,14 +306,6 @@ BEGIN
         WHERE l.Fecha BETWEEN p_FechaInicio AND p_FechaFin
 		    ) AS SalariosTotales
 		    GROUP BY IdEmpleado, Nombre, Cargo;
-	 END IF; 
 END //
-
-CALL pConsultarGananciasEmpleadosFechas('2024-05-06', '2024-05-06');
-
-/*Pruebas
-CALL pConsultarEmpleadoDelDia();
-CALL pConsultarTotalLavadosDelDia();
-CALL pConsultarGananciasDelDia();*/
 
 

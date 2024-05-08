@@ -13,17 +13,16 @@
 
 <body class="bg-blue-400/30">
 
-
   <div><?php echo $view_content; ?></div>
+  <style>
+    body {
+      overflow: hidden;
+      user-select: none;
+    }
+    #completado li {
+      opacity: 0.5;
+    }
+  </style>
 </body>
-<style>
-  body {
-    overflow: hidden;
-    user-select: none;
-  }
-  #completado li {
-    opacity: 0.5;
-  }
-</style>
 
 </html>
