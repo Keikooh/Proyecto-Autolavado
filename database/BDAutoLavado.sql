@@ -169,7 +169,6 @@ BEGIN
     SELECT * FROM v_empleadodia;
 END //
 
-DELIMITER ;
 
 CREATE VIEW v_TotalLavados AS 
 SELECT COUNT(*) AS TotalAutos
@@ -190,7 +189,6 @@ BEGIN
     SELECT * FROM v_totallavados;
 END //
 
-DELIMITER ;
 
 CREATE VIEW v_totalgananciasdia AS
 SELECT SUM(Ganancia) AS totalGanancia FROM lavado
@@ -203,7 +201,6 @@ BEGIN
     SELECT * FROM v_totalgananciasdia;
 END //
 
-DELIMITER ;
 
 DELIMITER //
 
@@ -280,29 +277,50 @@ BEGIN
    END IF;
 END //
 
-DELIMITER ;
-
 
 																							/*Me gustaria agregar esto JARED*/
 /*Tabla que muestra el total de ganancias que han tenido los empleados en el rango de fechas ingresado.*/
 DELIMITER //
-CREATE PROCEDURE pConsultarGananciasEmpleadosFechas(
-IN p_FechaInicio DATE,
-IN p_FechaFin DATE)
-BEGIN
-   SELECT e.IdEmpleado,e.Nombre,e.Cargo, SUM(l.Ganancia) AS GananciaTotal
-	FROM empleado e LEFT JOIN Lavado l ON e.IdEmpleado = l.fkidempleadoUno OR e.IdEmpleado = l.fkidempleadoDos
-	WHERE l.Fecha BETWEEN p_FechaInicio AND p_FechaFin
-	GROUP BY e.IdEmpleado,e.Nombre,e.Cargo;
-END //
-CALL pConsultarGananciasEmpleadosFechas('2024-05-06','2024-05-07');
 
-/*Impresion de PDF 
-- Reporte de Ganancias de los empleados por rango de fechas.
-- Reporte de lavados, con el fin de conocer los lavados por un rango de fechas dados por el ususario (que muestre lo mismo que el pConsultarReportes, pero
-  que esta ves se muestre tambien el costo del lavado, el dato de las ganancias de cada empleado que participo en los lavados y del mismo modo las ganancias.)
-  
-  
-  PD: Espero que puedas we porque esto estaria perrisimo.*/
+CREATE PROCEDURE pConsultarGananciasEmpleadosFechas(
+    IN p_FechaInicio DATE,
+    IN p_FechaFin DATE
+)
+BEGIN
+    IF p_FechaInicio IS NULL OR p_FechaFin IS NULL THEN
+   	 SELECT IdEmpleado, Nombre, Cargo, SUM(Salario) AS TotalSalario
+			FROM (
+			    SELECT IdEmpleado, Nombre, Cargo, SalarioEmpleadoUno AS Salario
+			    FROM Empleado e
+			    JOIN Lavado l ON e.IdEmpleado = l.fkidempleadoUno
+			    UNION ALL
+			    SELECT IdEmpleado, Nombre, Cargo, SalarioEmpleadoDos AS Salario
+			    FROM Empleado e
+			    JOIN Lavado l ON e.IdEmpleado = l.fkidempleadoDos
+			) AS SalariosTotales
+			GROUP BY IdEmpleado, Nombre, Cargo;
+    ELSE
+	 	SELECT IdEmpleado, Nombre, Cargo, SUM(Salario) AS TotalSalario
+    	FROM (
+        SELECT IdEmpleado, Nombre, Cargo, SalarioEmpleadoUno AS Salario
+        FROM Empleado e
+        JOIN Lavado l ON e.IdEmpleado = l.fkidempleadoUno
+        WHERE l.Fecha BETWEEN p_FechaInicio AND p_FechaFin
+        UNION ALL
+        SELECT IdEmpleado, Nombre, Cargo, SalarioEmpleadoDos AS Salario
+        FROM Empleado e
+        JOIN Lavado l ON e.IdEmpleado = l.fkidempleadoDos
+        WHERE l.Fecha BETWEEN p_FechaInicio AND p_FechaFin
+		    ) AS SalariosTotales
+		    GROUP BY IdEmpleado, Nombre, Cargo;
+	 END IF; 
+END //
+
+CALL pConsultarGananciasEmpleadosFechas('2024-05-06', '2024-05-06');
+
+/*Pruebas
+CALL pConsultarEmpleadoDelDia();
+CALL pConsultarTotalLavadosDelDia();
+CALL pConsultarGananciasDelDia();*/
 
 

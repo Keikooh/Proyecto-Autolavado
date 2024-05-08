@@ -8,6 +8,18 @@
         left: 50%;
         transform: translate(-50%, -50%);
     }
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0; 
+        display: flex;
+        flex-direction: column; 
+    }
+
+    main {
+        flex-grow: 1; 
+        overflow-y: auto;
+    }
 </style>
 </head>
 
@@ -104,6 +116,32 @@
                 <tbody class="bg-white divide-y divide-gray-200">
                     <?php echo $resultado ?>
                 </tbody>
+            </table><br>
+            <!--Tabla donde se muestran las ganancias empleados-->
+            <h2 class="text-[#001459] text-base font-bold mr-8 ">Pagos a Empleados</h2><br>
+            <div class="flex justify-start space-x-4">
+                <div class="relative w-1/4">
+                    <input type="date" name="txtFechaInicioe" id="txtFechaInicioe" class="block w-full py-2 pl-3 pr-8 border border-gray-300 rounded-md bg-white focus:bg-white focus:outline-none focus:border-blue-400">
+                    <label for="txtFechaInicio" class="absolute left-3 transition-all duration-300 ease-in-out -top-2 px-1 bg-white rounded-md text-gray-600 text-xs border border-gray-300">Fecha de Inicio</label>
+                </div>
+                <div class="relative w-1/4">
+                    <input type="date" name="txtFechaFinale" id="txtFechaFinale" class="block w-full py-2 pl-3 pr-8 border border-gray-300 rounded-md bg-white focus:bg-white focus:outline-none focus:border-blue-400">
+                    <label for="txtFechaFinal" class="absolute left-3 transition-all duration-300 ease-in-out -top-2 px-1 bg-white rounded-md text-gray-600 text-xs border border-gray-300">Fecha Final</label>
+                </div>
+                <button id="btnFiltarEmpleado" class="bg-white rounded-xl px-5 py-2 text-center shadow-lg"><img src="images/search.png" alt="Busqueda" class="h-5 w-5"></button>
+            </div><br>
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Identificador</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre del Empleado</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cargo</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ganancias Totales</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    <?php echo $sueldosEmpleados ?>
+                </tbody>
             </table>
         </main>
 
@@ -131,6 +169,9 @@
                     });
                     //alert("Texto");
                 });
+            });
+            $('#btnFiltarEmpleado').click(function () {
+                alert("Hola");
             });
             /*
             function uncheckOthers(id) {

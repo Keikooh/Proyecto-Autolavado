@@ -16,7 +16,7 @@ if (isset($_POST['cerrar_sesion'])) {
 $p['empleadoDia'] = $accesoDatos->obtenerEmpleadoDia();
 $p['total'] = $accesoDatos->obtenerTotalLavados();
 $p['ganancias'] = $accesoDatos->obtenerGananciasDia();
-
+$p['sueldosEmpleados'] = $accesoDatos->sueldoEmpleados(NULL,NULL);
 $p['resultado']=$accesoDatos->obtenerReportes(NULL,NULL,'',true,true,true);
 
 view('admin', $p);
