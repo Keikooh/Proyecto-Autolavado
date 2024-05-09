@@ -169,13 +169,31 @@
                         }
                     });
                 });
-
+                
                 // Manejar el clic del botón #btnReporte
                 $(document).on('click', '#btnReporte', function() {
                     try {
-                        const tablaResultado = document.getElementById('tResultado');
-                        const tablaEmpleados = document.getElementById('tEmpleados');
-                        alert(tablaResultado);
+                        const tablaResultado = $('#tResultado').html();
+                        const tablaEmpleados = $('#tEmpleados').html();
+                        let txtFechaInicio = $("#txtFechaInicio").val();
+                        let txtFechaFinal = $("#txtFechaFinal").val();
+                        $.post("accionesAdmin", {
+                            tReportes: tablaResultado,
+                            tEmpleados: tablaEmpleados,
+                            txtFechaInicio: txtFechaInicio,
+                            txtFechaFinal: txtFechaFinal
+                        }, function(response) {
+                            let data = JSON.parse(response);
+                            if(data.res) {
+                                Swal.fire({
+                                    title: "¡PDF generado y guardado correctamente!",
+                                    text: "Revisa el archivo de reportes en tus documentos C:/Users/yourUser/Documents/Reportes 😉",
+                                    icon: "info",
+                                    confirmButtonColor: "#3085d6",
+                                    confirmButtonText: "Aceptar"
+                                });
+                            }
+                        });
                     } catch (error) {
                         alert('Error al generar el PDF: ' + error.message);
                     }

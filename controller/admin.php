@@ -13,9 +13,9 @@ if (isset($_POST['cerrar_sesion'])) {
     exit;
 }
 
-$p['empleadoDia'] = $accesoDatos->obtenerEmpleadoDia();
-$p['total'] = $accesoDatos->obtenerTotalLavados();
-$p['ganancias'] = $accesoDatos->obtenerGananciasDia();
+$p['empleadoDia'] = $accesoDatos->obtenerEmpleadoDia(NULL, NULL)[0]['nombre'];
+$p['total'] = $accesoDatos->obtenerTotalLavados(NULL, NULL);
+$p['ganancias'] = $accesoDatos->obtenerGananciasDia(NULL,NULL);
 $p['sueldosEmpleados'] = $accesoDatos->sueldoEmpleados(NULL,NULL);
 $p['resultado']=$accesoDatos->obtenerReportes(NULL,NULL,'',true,true,true);
 

@@ -17,28 +17,31 @@ class AccesoDatosAdministrador
         return self::$instancia;
     }
 
-    public function obtenerEmpleadoDia()
+    public function obtenerEmpleadoDia($fechaInicio, $fechaFinal)
     {
         $con = new mysqli(s, u, p, bd);
         $query = $con->set_charset("utf8");
         $query = $con->stmt_init();
-        $query->prepare("CALL pConsultarEmpleadoDelDia()");
+
+        $query->prepare("CALL pConsultarEmpleadoDelDia_por_rango(?,?)");
+        $query->bind_param('ss', $fechaInicio, $fechaFinal);
         $query->execute();
         $query->bind_result($nombre, $totalLavados);
-        $empleado = "-";
+        $empleado = array();
         while ($query->fetch()) {
-            $empleado = $nombre;
+            $empleado[] = array('nombre' => $nombre, 'totalLavados' => $totalLavados);
         }
         $query->close();
         return $empleado;
     }
 
-    public function obtenerTotalLavados()
+    public function obtenerTotalLavados($fechaInicio, $fechaFinal)
     {
         $con = new mysqli(s, u, p, bd);
         $query = $con->set_charset("utf8");
         $query = $con->stmt_init();
-        $query->prepare("CALL pConsultarTotalLavadosDelDia()");
+        $query->prepare("CALL pConsultarTotalLavadosDelDia_por_rango(?,?)");
+        $query->bind_param('ss', $fechaInicio, $fechaFinal);
         $query->execute();
         $query->bind_result($totalLavados);
         while ($query->fetch())
@@ -47,12 +50,13 @@ class AccesoDatosAdministrador
         return $total;
     }
 
-    public function obtenerGananciasDia()
+    public function obtenerGananciasDia($fechaInicio, $fechaFinal)
     {
         $con = new mysqli(s, u, p, bd);
         $query = $con->set_charset("utf8");
         $query = $con->stmt_init();
-        $query->prepare("CALL pConsultarGananciasDelDia()");
+        $query->prepare("CALL pConsultarGananciasDelDia_por_rango(?,?)");
+        $query->bind_param('ss', $fechaInicio, $fechaFinal);
         $query->execute();
         $query->bind_result($totalGanancias);
         while ($query->fetch())
@@ -86,7 +90,7 @@ class AccesoDatosAdministrador
             $rs .= '<td class="px-6 py-4 whitespace-nowrap">' . $color . '</td>';
             $rs .= '<td class="px-6 py-4 whitespace-nowrap">' . $observaciones . '</td>';
             $rs .= '<td class="px-6 py-4 whitespace-nowrap">' . date('d/m/Y', strtotime($fecha)) . '</td>';
-            $rs .= '<td class="px-6 py-4 whitespace-nowrap">' . $costo . '</td>';
+            $rs .= '<td class="px-6 py-4 whitespace-nowrap">$' . $costo . '</td>';
             $rs .= '</tr>';
         }
 

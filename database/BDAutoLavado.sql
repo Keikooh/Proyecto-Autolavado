@@ -154,53 +154,6 @@ WHERE empleado.IdEmpleado=lavado.fkidempleadoUno
 OR empleado.IdEmpleado = lavado.fkidempleadoDos
 GROUP BY empleado.IdEmpleado;*/
 
-CREATE VIEW v_empleadodia AS
-SELECT empleado.Nombre, COUNT(lavado.fkplaca) AS TotalAutosLavados
-FROM empleado
-LEFT JOIN lavado ON (empleado.IdEmpleado = lavado.fkidempleadoUno OR empleado.IdEmpleado = lavado.fkidempleadoDos)
-WHERE DATE(lavado.Fecha) = CURDATE()
-GROUP BY empleado.IdEmpleado
-LIMIT 1;
-
-DELIMITER //
-
-CREATE PROCEDURE pConsultarEmpleadoDelDia()
-BEGIN
-    SELECT * FROM v_empleadodia;
-END //
-
-
-CREATE VIEW v_TotalLavados AS 
-SELECT COUNT(*) AS TotalAutos
-FROM (
-    SELECT lavado.IdLavado, empleado_uno.Nombre AS NombreEmpleadoUno, empleado_dos.Nombre AS NombreEmpleadoDos, lavado.SalarioEmpleadoUno, lavado.SalarioEmpleadoDos, 
-    lavado.fkplaca, lavado.Fecha, lavado.costo, lavado.Ganancia, lavado.ObservacionesVehiculo, vehiculo.Cliente, vehiculo.Modelo, vehiculo.Color
-    FROM lavado
-    INNER JOIN empleado AS empleado_uno ON lavado.fkidempleadoUno = empleado_uno.IdEmpleado
-    INNER JOIN empleado AS empleado_dos ON lavado.fkidempleadoDos = empleado_dos.IdEmpleado
-    INNER JOIN vehiculo ON lavado.fkplaca = vehiculo.Placa
-    WHERE DATE(lavado.Fecha) = CURDATE()
-) AS subconsulta;
-
-DELIMITER //
-
-CREATE PROCEDURE pConsultarTotalLavadosDelDia()
-BEGIN
-    SELECT * FROM v_totallavados;
-END //
-
-
-CREATE VIEW v_totalgananciasdia AS
-SELECT SUM(Ganancia) AS totalGanancia FROM lavado
-WHERE DATE(lavado.Fecha) = CURDATE();
-
-DELIMITER //
-
-CREATE PROCEDURE pConsultarGananciasDelDia()
-BEGIN
-    SELECT * FROM v_totalgananciasdia;
-END //
-
 
 DELIMITER //
 
@@ -275,13 +228,11 @@ BEGIN
 		OR Placa LIKE CONCAT('%',pFiltro,'%')
 		OR Cliente LIKE CONCAT('%',pFiltro,'%'));
    END IF;
-END //
+END 
 
 
-																							/*Me gustaria agregar esto JARED*/
-/*Tabla que muestra el total de ganancias que han tenido los empleados en el rango de fechas ingresado.*/
+																	/*Vistas y Procedimientos agregados a el modulo de administrador NUEVOS PROPUESTA GABRIEL...*/
 DELIMITER //
-
 CREATE PROCEDURE pConsultarGananciasEmpleadosFechas(
     IN p_FechaInicio DATE,
     IN p_FechaFin DATE
@@ -308,4 +259,86 @@ BEGIN
 		    GROUP BY IdEmpleado, Nombre, Cargo;
 END //
 
+-- Definir el procedimiento almacenado pConsultarEmpleadoDelDia_por_rango
+CREATE VIEW v_empleadodia_max AS
+SELECT empleado.Nombre, COUNT(lavado.fkplaca) AS TotalAutosLavados
+FROM empleado
+LEFT JOIN lavado ON (empleado.IdEmpleado = lavado.fkidempleadoUno OR empleado.IdEmpleado = lavado.fkidempleadoDos)
+WHERE DATE(lavado.Fecha) = CURDATE()
+GROUP BY empleado.IdEmpleado
+ORDER BY TotalAutosLavados DESC
+LIMIT 1;
+DELIMITER //
+CREATE PROCEDURE pConsultarEmpleadoDelDia_por_rango(IN PfechaInicio DATE, IN PfechaFin DATE)
+BEGIN
+	IF PFechaInicio IS NULL OR PFechaFin IS NULL THEN
+   	SELECT * FROM v_empleadodia_max;
+   ELSE
+   	SELECT empleado.Nombre, COUNT(lavado.fkplaca) AS TotalAutosLavados
+		FROM empleado
+		LEFT JOIN lavado ON (empleado.IdEmpleado = lavado.fkidempleadoUno OR empleado.IdEmpleado = lavado.fkidempleadoDos)
+		WHERE DATE(lavado.Fecha) BETWEEN PfechaInicio AND PfechaFin
+		GROUP BY empleado.IdEmpleado
+		HAVING COUNT(lavado.fkplaca) = (
+		    SELECT MAX(contador)
+		    FROM (
+		        SELECT COUNT(lavado.fkplaca) AS contador
+		        FROM empleado
+		        LEFT JOIN lavado ON (empleado.IdEmpleado = lavado.fkidempleadoUno OR empleado.IdEmpleado = lavado.fkidempleadoDos)
+		        WHERE DATE(lavado.Fecha) BETWEEN PfechaInicio AND PfechaFin
+		        GROUP BY empleado.IdEmpleado
+		    ) AS subconsulta);
+	END IF;
+END //
+CALL pConsultarEmpleadoDelDia_por_rango(NULL,NULL);
+CALL pConsultarEmpleadoDelDia_por_rango('2024-05-06','2024-05-08');
 
+-- Definir el procedimiento almacenado pConsultarTotalLavadosDelDia_por_rango
+CREATE VIEW v_TotalLavados AS 
+SELECT COUNT(*) AS TotalAutos
+FROM (
+    SELECT lavado.IdLavado, empleado_uno.Nombre AS NombreEmpleadoUno, empleado_dos.Nombre AS NombreEmpleadoDos, lavado.SalarioEmpleadoUno, lavado.SalarioEmpleadoDos, 
+    lavado.fkplaca, lavado.Fecha, lavado.costo, lavado.Ganancia, lavado.ObservacionesVehiculo, vehiculo.Cliente, vehiculo.Modelo, vehiculo.Color
+    FROM lavado
+    INNER JOIN empleado AS empleado_uno ON lavado.fkidempleadoUno = empleado_uno.IdEmpleado
+    INNER JOIN empleado AS empleado_dos ON lavado.fkidempleadoDos = empleado_dos.IdEmpleado
+    INNER JOIN vehiculo ON lavado.fkplaca = vehiculo.Placa
+    WHERE DATE(lavado.Fecha) = CURDATE()
+) AS subconsulta;
+DELIMITER //
+CREATE PROCEDURE pConsultarTotalLavadosDelDia_por_rango(IN PfechaInicio DATE, IN PfechaFin DATE)
+BEGIN
+	IF PFechaInicio IS NULL OR PFechaFin IS NULL THEN
+   	SELECT * FROM v_totallavados;
+   ELSE
+   	SELECT COUNT(*) AS TotalAutos
+		FROM (
+	    SELECT lavado.IdLavado, empleado_uno.Nombre AS NombreEmpleadoUno, empleado_dos.Nombre AS NombreEmpleadoDos, lavado.SalarioEmpleadoUno, lavado.SalarioEmpleadoDos, 
+	    lavado.fkplaca, lavado.Fecha, lavado.costo, lavado.Ganancia, lavado.ObservacionesVehiculo, vehiculo.Cliente, vehiculo.Modelo, vehiculo.Color
+	    FROM lavado
+	    INNER JOIN empleado AS empleado_uno ON lavado.fkidempleadoUno = empleado_uno.IdEmpleado
+	    INNER JOIN empleado AS empleado_dos ON lavado.fkidempleadoDos = empleado_dos.IdEmpleado
+	    INNER JOIN vehiculo ON lavado.fkplaca = vehiculo.Placa
+	    WHERE DATE(lavado.Fecha) BETWEEN PfechaInicio AND PfechaFin
+		) AS subconsulta;
+   END IF;
+END //
+CALL pConsultarTotalLavadosDelDia_por_rango(NULL,NULL);
+CALL pConsultarTotalLavadosDelDia_por_rango('2024-05-06','2024-05-08');
+
+-- Definir el procedimiento almacenado pConsultarGananciasDelDia_por_rango
+CREATE VIEW v_totalgananciasdia AS
+SELECT SUM(Ganancia) AS totalGanancia FROM lavado
+WHERE DATE(lavado.Fecha) = CURDATE();
+DELIMITER //
+CREATE PROCEDURE pConsultarGananciasDelDia_por_rango(IN PfechaInicio DATE, IN PfechaFin DATE)
+BEGIN
+	IF PFechaInicio IS NULL OR PFechaFin IS NULL THEN
+   	SELECT * FROM v_totalgananciasdia;
+   ELSE
+    SELECT SUM(Ganancia) AS totalGanancia FROM lavado
+		WHERE DATE(lavado.Fecha) BETWEEN PfechaInicio AND PfechaFin;
+	END IF;
+END //
+CALL pConsultarGananciasDelDia_por_rango(NULL,NULL);
+CALL pConsultarGananciasDelDia_por_rango('2024-05-06','2024-05-08');
