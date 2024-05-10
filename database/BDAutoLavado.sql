@@ -158,80 +158,65 @@ GROUP BY empleado.IdEmpleado;*/
 DELIMITER //
 
 CREATE PROCEDURE pConsultarReportes(
-IN pFechaInicio DATE,
-IN pFechaFin DATE,
-IN pFiltro VARCHAR(100),
-IN pEmpleado BOOL,
-IN pCliente BOOL,
-IN pPlaca BOOL
+    IN pFechaInicio DATE,
+    IN pFechaFin DATE,
+    IN pFiltro VARCHAR(100),
+    IN pEmpleado BOOL,
+    IN pCliente BOOL,
+    IN pPlaca BOOL
 )
 BEGIN
-	IF pFechaFin > pFechaInicio OR (pFechaFin IS NULL) THEN
-    	SET pFechaFin = CURDATE();
-   END IF;
-   
-   IF pFechaInicio IS NULL THEN
-   	SET pFechaInicio = CURDATE();
-   END IF;
-   
-   -- Obtener consulta filtrando por empleado
-   IF NOT pPlaca AND NOT pCliente AND pEmpleado THEN
-   	SELECT * FROM v_reportes
-   	WHERE (Fecha
-    	BETWEEN pFechaInicio AND pFechaFin)
-		AND (NombreEmpleadoUno LIKE CONCAT('%',pFiltro,'%')
-		OR NombreEmpleadoDos LIKE CONCAT('%',pFiltro,'%'));
-	-- Obtener consulta filtrando por Cliente
-   ELSEIF NOT pPlaca AND pCliente AND NOT pEmpleado THEN
-   	SELECT * FROM v_reportes
-   	WHERE (Fecha
-    	BETWEEN pFechaInicio AND pFechaFin)
-		AND (Cliente LIKE CONCAT('%',pFiltro,'%'));
-	-- Obtener consulta filtrando por Cliente y por Empleado
-   ELSEIF NOT pPlaca AND pCliente AND pEmpleado THEN
-   	SELECT * FROM v_reportes
-   	WHERE (Fecha
-    	BETWEEN pFechaInicio AND pFechaFin)
-		AND (NombreEmpleadoUno LIKE CONCAT('%',pFiltro,'%')
-		OR NombreEmpleadoDos LIKE CONCAT('%',pFiltro,'%')
-		OR Cliente LIKE CONCAT('%',pFiltro,'%'));
-	-- Obtener consulta filtrando por Placa
-   ELSEIF pPlaca AND NOT pCliente AND NOT pEmpleado THEN
-   	SELECT * FROM v_reportes
-   	WHERE (Fecha
-    	BETWEEN pFechaInicio AND pFechaFin)
-		AND (Placa LIKE CONCAT('%',pFiltro,'%'));
-	-- Obtener consulta filtrando por Placa y por Empleado
-   ELSEIF pPlaca AND NOT pCliente AND pEmpleado THEN
-   	SELECT * FROM v_reportes
-   	WHERE (Fecha
-    	BETWEEN pFechaInicio AND pFechaFin)
-		AND (Placa LIKE CONCAT('%',pFiltro,'%')
-		OR NombreEmpleadoUno LIKE CONCAT('%',pFiltro,'%')
-		OR NombreEmpleadoDos LIKE CONCAT('%',pFiltro,'%'));
-	
-	-- Obtener consulta filtrando por Placa y por Cliente
-   ELSEIF pPlaca AND pCliente AND NOT pEmpleado THEN
-   	SELECT * FROM v_reportes
-   	WHERE (Fecha
-    	BETWEEN pFechaInicio AND pFechaFin)
-		AND (Placa LIKE CONCAT('%',pFiltro,'%')
-		OR Cliente LIKE CONCAT('%',pFiltro,'%'));
-		
-	-- Obtener consulta filtrando por Placa, Cliente o Empleado
-   ELSE
-   	SELECT * FROM v_reportes
-   	WHERE (Fecha
-    	BETWEEN pFechaInicio AND pFechaFin)
-		AND (NombreEmpleadoUno LIKE CONCAT('%',pFiltro,'%')
-		OR NombreEmpleadoDos LIKE CONCAT('%',pFiltro,'%')
-		OR Placa LIKE CONCAT('%',pFiltro,'%')
-		OR Cliente LIKE CONCAT('%',pFiltro,'%'));
-   END IF;
-END 
+    IF pFechaInicio IS NULL THEN
+        SET pFechaInicio = CURDATE();
+    END IF;
+
+    IF pFechaFin IS NULL OR pFechaFin < pFechaInicio THEN
+        SET pFechaFin = CURDATE();
+    END IF;
+
+    -- Obtener consulta filtrando por empleado
+    IF pEmpleado THEN
+        SELECT * FROM v_reportes
+        WHERE Fecha BETWEEN pFechaInicio AND pFechaFin
+        AND (NombreEmpleadoUno LIKE CONCAT('%',pFiltro,'%')
+            OR NombreEmpleadoDos LIKE CONCAT('%',pFiltro,'%'));
+    -- Obtener consulta filtrando por Cliente
+    ELSEIF pCliente THEN
+        SELECT * FROM v_reportes
+        WHERE Fecha BETWEEN pFechaInicio AND pFechaFin
+        AND Cliente LIKE CONCAT('%',pFiltro,'%');
+    -- Obtener consulta filtrando por Placa
+    ELSEIF pPlaca THEN
+        SELECT * FROM v_reportes
+        WHERE Fecha BETWEEN pFechaInicio AND pFechaFin
+        AND Placa LIKE CONCAT('%',pFiltro,'%');
+    -- Obtener consulta filtrando por Placa y por Empleado
+    ELSEIF pPlaca AND pEmpleado THEN
+        SELECT * FROM v_reportes
+        WHERE Fecha BETWEEN pFechaInicio AND pFechaFin
+        AND (Placa LIKE CONCAT('%',pFiltro,'%')
+            OR NombreEmpleadoUno LIKE CONCAT('%',pFiltro,'%')
+            OR NombreEmpleadoDos LIKE CONCAT('%',pFiltro,'%'));
+    -- Obtener consulta filtrando por Placa y por Cliente
+    ELSEIF pPlaca AND pCliente THEN
+        SELECT * FROM v_reportes
+        WHERE Fecha BETWEEN pFechaInicio AND pFechaFin
+        AND (Placa LIKE CONCAT('%',pFiltro,'%')
+            OR Cliente LIKE CONCAT('%',pFiltro,'%'));
+    -- Obtener consulta filtrando por Placa, Cliente o Empleado
+    ELSE
+        SELECT * FROM v_reportes
+        WHERE Fecha BETWEEN pFechaInicio AND pFechaFin
+        AND (NombreEmpleadoUno LIKE CONCAT('%',pFiltro,'%')
+            OR NombreEmpleadoDos LIKE CONCAT('%',pFiltro,'%')
+            OR Placa LIKE CONCAT('%',pFiltro,'%')
+            OR Cliente LIKE CONCAT('%',pFiltro,'%'));
+    END IF;
+END //
 
 
-																	/*Vistas y Procedimientos agregados a el modulo de administrador NUEVOS PROPUESTA GABRIEL...*/
+
+																	/*Vistas y Procedimientos agregados GABRIEL*/
 DELIMITER //
 CREATE PROCEDURE pConsultarGananciasEmpleadosFechas(
     IN p_FechaInicio DATE,

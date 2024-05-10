@@ -30,7 +30,7 @@
     <div class="flex flex-col my-9 gap-y-5 w-[93%] m-auto shadow-inner rounded-lg bg-white/70 p-10 rounded h-[90vh]">
         <nav>
             <div class="flex justify-between mb-4">
-                <h1 class="text-[#001459] text-2xl font-bold">Reportes</h1>
+                <h1 class="text-[#001459] text-2xl font-bold">Bienvenido a Reportes - <?php echo $fechaHoy ?></h1>
                 <span class="flex items-center gap-x-3 font-semibold">
                     Administrador
                     <form action="admin" method="post">
