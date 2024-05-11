@@ -18,6 +18,6 @@ $p['total'] = $accesoDatos->obtenerTotalLavados(NULL, NULL);
 $p['ganancias'] = $accesoDatos->obtenerGananciasDia(NULL,NULL);
 $p['sueldosEmpleados'] = $accesoDatos->sueldoEmpleados(NULL,NULL);
 $p['resultado']=$accesoDatos->obtenerReportes(NULL,NULL,'',true,true,true);
-$p['fechaHoy'] = date('d-m-Y');
+$p['fechaHoy'] = date('d/m/Y');
 view('admin', $p);
 ?>

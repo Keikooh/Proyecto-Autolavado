@@ -36,6 +36,21 @@ ObservacionesVehiculo VARCHAR(100),
 FOREIGN KEY(fkidempleadoUno) REFERENCES Empleado(IdEmpleado),
 FOREIGN KEY(fkidempleadoDos) REFERENCES Empleado(IdEmpleado),
 FOREIGN KEY(fkplaca) REFERENCES Vehiculo(Placa));
+CREATE TABLE Historico(
+IdLavado INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+NombreEmpleadoUno VARCHAR(100),
+NombreEmpleadoDos VARCHAR(100),
+Cliente VARCHAR(100),
+PlacaVehiculo VARCHAR(100),
+TipoVehiculo VARCHAR(100),
+Modelo VARCHAR(100),
+Color VARCHAR(100),
+Observaciones VARCHAR(100),
+Fecha DATE,
+CostoLavado FLOAT,
+GananciaEmpresa FLOAT,
+PagoEmpleados FLOAT
+);
 
 												/*PROCEDIMIENTOS ALMACENADOS*/
 /*Para empleado*/
@@ -59,17 +74,40 @@ END if;
 END if;
 END;;
 /*ELIMINAR*/
-delimiter ;;
+DELIMITER ;;
 CREATE PROCEDURE DeleteEmpleado(
-IN p_IdEmpleado INT)
+    IN p_IdEmpleado INT
+)
 BEGIN
-DELETE FROM empleado WHERE IdEmpleado=p_IdEmpleado;
-END;;
+	 DECLARE vplaca VARCHAR(50);
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION ROLLBACK;
+
+    START TRANSACTION;
+
+    -- Guardar registros en tabla Historico antes de eliminarlos
+    INSERT INTO Historico (NombreEmpleadoUno, NombreEmpleadoDos, Cliente, PlacaVehiculo, TipoVehiculo, Modelo, Color, Observaciones, Fecha, CostoLavado, GananciaEmpresa, PagoEmpleados)
+    SELECT e1.Nombre AS NombreEmpleadoUno, e2.Nombre AS NombreEmpleadoDos, v.Cliente, v.Placa, v.Tipo, v.Modelo, v.Color, l.ObservacionesVehiculo, l.Fecha, l.Costo, l.Ganancia, (l.Costo - l.Ganancia)
+    FROM Lavado l
+    LEFT JOIN Empleado e1 ON l.fkidempleadoUno = e1.IdEmpleado
+    LEFT JOIN Empleado e2 ON l.fkidempleadoDos = e2.IdEmpleado
+    LEFT JOIN Vehiculo v ON l.fkplaca = v.Placa
+    WHERE l.fkidempleadoUno = p_IdEmpleado OR l.fkidempleadoDos = p_IdEmpleado;
+
+    -- Eliminar registros relacionados en otras tablas
+    
+    SELECT fkPlaca INTO vplaca FROM Lavado WHERE fkidempleadoUno = p_IdEmpleado OR fkidempleadoDos = p_IdEmpleado LIMIT 1;
+    DELETE FROM Lavado WHERE fkidempleadoUno = p_IdEmpleado OR fkidempleadoDos = p_IdEmpleado;
+    DELETE FROM Vehiculo WHERE Placa = vplaca;
+    DELETE FROM Empleado WHERE IdEmpleado = p_IdEmpleado;
+
+    COMMIT;
+END ;;
+DELIMITER ;
+
 /*MOSTRAR*/
 delimiter ;;
 CREATE PROCEDURE ShowEmpleado()
 BEGIN
-SELECT * FROM empleado;
 END;;
 /*Para vehiculo*/
 /*GUARDAR Y ACTUALIZAR*/
@@ -153,10 +191,8 @@ SELECT *,COUNT(lavado.fkplaca) FROM empleado,lavado
 WHERE empleado.IdEmpleado=lavado.fkidempleadoUno 
 OR empleado.IdEmpleado = lavado.fkidempleadoDos
 GROUP BY empleado.IdEmpleado;*/
-
-
+																	/*Vistas y Procedimientos agregados GABRIEL*/
 DELIMITER //
-
 CREATE PROCEDURE pConsultarReportes(
     IN pFechaInicio DATE,
     IN pFechaFin DATE,
@@ -214,9 +250,6 @@ BEGIN
     END IF;
 END //
 
-
-
-																	/*Vistas y Procedimientos agregados GABRIEL*/
 DELIMITER //
 CREATE PROCEDURE pConsultarGananciasEmpleadosFechas(
     IN p_FechaInicio DATE,

@@ -561,8 +561,8 @@
         $(document).on('click', '.btnEliminarEmpleado', function () {
             const id = $(this).data('id'); 
             Swal.fire({
-                title: "¿Estás seguro de eliminar?",
-                text: "¡No podrás revertir esto!",
+                title: "¿Estás seguro de eliminar a este empleado? --> Lee atentamente las instrucciones.",
+                text: "Al eliminar a este empleado tambien eliminas los registros de lavado que este ha desempeñado, mas no significa que no puedas visualizarlos, consulta con el administrador.",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
