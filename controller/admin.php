@@ -13,7 +13,13 @@ if (isset($_POST['cerrar_sesion'])) {
     exit;
 }
 
-$p['empleadoDia'] = $accesoDatos->obtenerEmpleadoDia(NULL, NULL)[0]['nombre'];
+$empleadoDia = $accesoDatos->obtenerEmpleadoDia(NULL, NULL);
+    if (!empty($empleadoDia)) {
+        $p['empleadoDia'] = $empleadoDia[0]['nombre'];
+    }
+    else{
+        $p['empleadoDia'] = '-';
+    }
 $p['total'] = $accesoDatos->obtenerTotalLavados(NULL, NULL);
 $p['ganancias'] = $accesoDatos->obtenerGananciasDia(NULL,NULL);
 $p['sueldosEmpleados'] = $accesoDatos->sueldoEmpleados(NULL,NULL);
