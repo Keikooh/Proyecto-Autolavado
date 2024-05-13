@@ -129,4 +129,27 @@ class AccesoDatosAdministrador
 
         return $rs;
     }
+
+    public function Historico()
+    {
+        $con = new mysqli(s, u, p, bd);
+        $query = $con->set_charset("utf8");
+        $query = $con->stmt_init();
+
+        $query->prepare("CALL pHistorico()");
+        $query->execute();
+        $query->bind_result($id,$fecha,$costoLavado,$ganancia,$pagoEmpleados,$empleadoUno,$empleadoDos,$cliente,$placa,$tipo,$modelo,$color,$observaciones);
+        $rs = '';
+
+        while ($query->fetch()) {
+            // Reporte
+            $rs .= PHP_EOL.'LAVADO HISTORICO CON IDENTIFICADOR '.$id.' REALIZADO EL '.$fecha.PHP_EOL;
+            $rs .= PHP_EOL.'DATOS RELACIONADOS CON LOS COSTOS'.PHP_EOL.'- Costo del lavado: $' . $costoLavado .PHP_EOL. '- Ganancia obtenida: $'.$ganancia.PHP_EOL.'- Ganancia de los empleados: $'.$pagoEmpleados.PHP_EOL;
+            $rs.=PHP_EOL.'DATOS RELACIONADOS CON LOS EMPLEADOS'.PHP_EOL.'- Nombre del empleado encargado del área de lavado: '.$empleadoUno.PHP_EOL.'- Nombre del empleado encargado del área de secado: '.$empleadoDos.PHP_EOL;
+            $rs.=PHP_EOL.'DATOS RELACIONADOS CON EL CLIENTE Y SU VEHICULO'.PHP_EOL.'Nombre del cliente: '.$cliente.PHP_EOL.'- Propietario del vehiculo con placa '.$placa.PHP_EOL.'- El tipo de vehiculo fue '.$tipo.PHP_EOL.'- El modelo del vehiculo fue '.$modelo.PHP_EOL.'- El color del vehiculo fue descrito como '.$color.PHP_EOL.'- Observaciones descritas: '.$observaciones.PHP_EOL;
+            $rs .= '__________________________________________________________________________________________________'.PHP_EOL;
+        }
+        $query->close();
+        return $rs;
+    }
 }

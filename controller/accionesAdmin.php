@@ -6,7 +6,7 @@
     $accesoDatos = AccesoDatosAdministrador::obtenerInstancia();
     $resultado = '';
     $empleado = '';
-    $respuesta=false;
+    $respuesta=false; $historico=false;
     if (isset($_POST['txtBuscar'])) {
         $resultado = $accesoDatos->obtenerReportes(
             $_POST['txtFechaInicio'] == '' ? NULL : $_POST['txtFechaInicio'],
@@ -20,6 +20,7 @@
         $_POST['txtFechaInicio'] == '' ? NULL : $_POST['txtFechaInicio'],
         $_POST['txtFechaFinal'] == '' ? NULL : $_POST['txtFechaFinal']);
     }
+    //PDF DE REPORTES
     if (isset($_POST['tReportes'],$_POST['tEmpleados'])) {
         //Para las fechas...
         $fechaInicio = ($_POST['txtFechaInicio'] == '') ? NULL : $_POST['txtFechaInicio'];
@@ -114,10 +115,36 @@
         $pdf->Output($rutaPDF, 'F');
         $respuesta = true;
     }
+    //PDF DE HISTORICOS
+    if(isset($_POST['btnHis']) && $_POST['btnHis'] == true) {
+        $historico=true;
+        // Crear instancia de TCPDF con orientación vertical
+        $pdf = new TCPDF('P', 'mm', array(216, 330), true, 'UTF-8', false);
+        $pdf->setPrintHeader(false);
+        // Agregar una página
+        $pdf->AddPage();
+        // Establecer el título del documento
+        $pdf->SetFont('helvetica', 'B', 14);
+        $titulo = 'REPORTE ORDINARIO DE HISTORICOS - ' . date('d/m/Y');
+        $pdf->Cell(0, 10, $titulo, 0, 1, 'C');
+        // Escribir en el PDF
+        $pdf->SetFont('', '', 10); // Usar la fuente por defecto
+        $pdf->SetFillColor(255, 255, 255); // Establecer el color de relleno a blanco
+        $pdf->MultiCell(0, 10, $accesoDatos->Historico(), 0, 'J', false); // Ajustar el formato de la celda y quitar los bordes
+
+        // Nombre del archivo PDF con marca de tiempo para evitar sobrescribir
+        $nombreArchivo = 'Historico_' . date('d-m-Y_H-i-s'). '.pdf';
+        // Ruta donde se guardará el PDF
+        $rutaPDF = 'C:/Users/gabri/Documents/Reportes/Historicos/' . $nombreArchivo;
+        // Salida del PDF como un archivo en la ruta especificada
+        $pdf->Output($rutaPDF, 'F');
+    }
+    
     $response = array(
         'resultado' => trim($resultado),
         'empleado' => trim($empleado),
-        'res'=>$respuesta
+        'res'=>$respuesta,
+        'his'=>$historico
     );
     echo json_encode($response);
 ?>

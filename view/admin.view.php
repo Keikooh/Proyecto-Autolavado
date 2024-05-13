@@ -59,10 +59,14 @@
                     <p class="bg-white rounded-3xl px-5 py-2 text-center shadow-lg">Ganancias del día: <strong class="font-semibold">$<?php echo $ganancias ?></strong></p>
                     <img class="h-10 w-10 mx-2" src="images/money.png" alt="Dinero ganado">
                 </li>
-                <li class="inline-block flex items-end ml-auto">
+                <li class="inline-block flex items-center ml-auto">
                     <button id="btnReporte" class="bg-white rounded-xl px-5 py-2 flex items-center justify-center shadow-lg"><img src="images/report.png" alt="Busqueda" class="h-10 w-10 mr-2"><span class="mr-2">Generar Reporte</span></button>
                 </li>
+                <li class="inline-block flex items-center">
+                    <button id="btnHistorico" class="bg-white rounded-xl px-5 py-2 flex items-center justify-center shadow-lg"><img src="images/historico.png" alt="Busqueda" class="h-10 w-10 mr-2"><span class="mr-2">Historico</span></button>
+                </li>
             </ul>
+
         </nav>
         <hr class="bg-color-white">
 
@@ -188,6 +192,26 @@
                                 Swal.fire({
                                     title: "¡PDF generado y guardado correctamente!",
                                     text: "Revisa el archivo de reportes en tus documentos C:/Users/yourUser/Documents/Reportes 😉",
+                                    icon: "info",
+                                    confirmButtonColor: "#3085d6",
+                                    confirmButtonText: "Aceptar"
+                                });
+                            }
+                        });
+                    } catch (error) {
+                        alert('Error al generar el PDF: ' + error.message);
+                    }
+                });
+                $(document).on('click', '#btnHistorico', function() {
+                    try {
+                        $.post("accionesAdmin", { 
+                            btnHis: true
+                        }, function(response) {
+                            let data = JSON.parse(response);
+                            if(data.his) {
+                                Swal.fire({
+                                    title: "¡PDF generado y guardado correctamente!",
+                                    text: "Revisa el archivo historico actual en tus documentos C:/Users/yourUser/Documents/Reportes/Historicos 😉",
                                     icon: "info",
                                     confirmButtonColor: "#3085d6",
                                     confirmButtonText: "Aceptar"
