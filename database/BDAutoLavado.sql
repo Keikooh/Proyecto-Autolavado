@@ -360,3 +360,12 @@ BEGIN
 END //
 CALL pConsultarGananciasDelDia_por_rango(NULL,NULL);
 CALL pConsultarGananciasDelDia_por_rango('2024-05-06','2024-05-08');
+
+-- Vista de historicos.
+CREATE VIEW v_Historico AS SELECT IdLavado AS IDENTIFICADOR,Fecha AS 'Fecha de Lavado',CostoLavado AS 'Costo del Lavado',GananciaEmpresa AS 'Ganancia de la empresa',PagoEmpleados AS 'Pago Acumulado para los Empleados', NombreEmpleadoUno AS 'Empleado Uno', NombreEmpleadoDos AS 'Empleado Dos', cliente, PlacaVehiculo AS 'Placa del Vehiculo',TipoVehiculo AS vehiculo, Modelo,Color,Observaciones FROM historico ORDER BY Fecha;
+DELIMITER //
+CREATE PROCEDURE pHistorico()
+BEGIN
+	SELECT * FROM v_Historico;
+END //
+CALL pHistorico();
