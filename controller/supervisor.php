@@ -1,14 +1,15 @@
 <?php 
 	require_once 'libreria/CrudEmpleado.php';
 	require_once 'libreria/CrudVehiculo.php';
-	require_once 'libreria/CobroTractoCamion.php';
-	require_once 'libreria/CobroCamioneta.php';
-	require_once 'libreria/CobroAutomovil.php';
+
+	require_once 'libreria/CobroFactory.php';
 	// Objetos.
 	$c = new CrudEmpleado();
 	$v = new CrudVehiculo();
 	$empleados = $c->Read();
 	$vehiculos = $v->Read();
+
+	$factory = CobroFactory::getInstance();
 
 	//Sesion...
 	if (!isset($_SESSION['user']) || $_SESSION['user'] !== 'Supervisor') {
@@ -43,25 +44,25 @@
 	if (isset($_POST['btnEliminarVehiculo']) && !isset($_POST['txtCliente'])) {
 		$registro = $v->Delete($_POST['btnEliminarVehiculo']);
 	}
-	//Codificaión para finalizar con el lavado.
+
+											//Codificaión para finalizar con el lavado.
 	if(isset($_POST['empleadoUno'], $_POST['empleadoDos'], $_POST['Placa'], $_POST['Observaciones'], $_POST['Tipo'])) {
 		switch ($_POST['Tipo']) {
 			case 'Automovil':
-				$cobroAutomovil = new CobroAutomovil();
-				$cobroAutomovil->Cobrar($_POST['empleadoUno'], $_POST['empleadoDos'], $_POST['Placa'], $_POST['Observaciones']);
+				$cobro = $factory->Facturar(Vehiculos::Automovil);
 				break;
 			case 'Camioneta':
-				$cobroCamioneta = new CobroCamioneta();
-				$cobroCamioneta->Cobrar($_POST['empleadoUno'], $_POST['empleadoDos'], $_POST['Placa'], $_POST['Observaciones']);
+				$cobro = $factory->Facturar(Vehiculos::Camioneta);
 				break;
 			case 'Tracto Camion':
-				$cobroTractoCamion = new CobroTractoCamion();
-				$cobroTractoCamion->Cobrar($_POST['empleadoUno'], $_POST['empleadoDos'], $_POST['Placa'], $_POST['Observaciones']);
+				$cobro = $factory->Facturar(Vehiculos::TractoCamion);
 				break;
 			default:
 				echo "No se recibio Datos.<br>";
 				break;
 		}
+
+		$cobro->Cobrar($_POST['empleadoUno'], $_POST['empleadoDos'], $_POST['Placa'], $_POST['Observaciones']);
 	}
 
 	

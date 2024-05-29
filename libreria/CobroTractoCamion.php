@@ -20,7 +20,7 @@
             // Calcular el costo
             $costo = 0;
             if ($tipo == 'Tracto Camion') {
-                if($clasificacion==16.5||$clasificacion<=16.5)
+                if($clasificacion<=16.5)
                 {
                     $costo=500;
                 }
@@ -28,7 +28,7 @@
                 {
                     $costo=800;
                 }
-                else if($clasificacion>18)
+                else if($clasificacion>=18)
                 {
                     $costo=1000;
                 }

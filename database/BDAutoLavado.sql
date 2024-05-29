@@ -79,7 +79,12 @@ CREATE PROCEDURE DeleteEmpleado(
     IN p_IdEmpleado INT
 )
 BEGIN
-	 DECLARE vplaca VARCHAR(50);
+    DECLARE vplaca VARCHAR(50);
+    DECLARE done INT DEFAULT FALSE;
+    DECLARE cur CURSOR FOR
+        SELECT fkPlaca FROM Lavado WHERE fkidempleadoUno = p_IdEmpleado OR fkidempleadoDos = p_IdEmpleado;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+    
     DECLARE EXIT HANDLER FOR SQLEXCEPTION ROLLBACK;
 
     START TRANSACTION;
@@ -94,15 +99,22 @@ BEGIN
     WHERE l.fkidempleadoUno = p_IdEmpleado OR l.fkidempleadoDos = p_IdEmpleado;
 
     -- Eliminar registros relacionados en otras tablas
+    OPEN cur;
+    read_loop: LOOP
+        FETCH cur INTO vplaca;
+        IF done THEN
+            LEAVE read_loop;
+        END IF;
+        DELETE FROM Lavado WHERE fkPlaca = vplaca;
+        DELETE FROM Vehiculo WHERE Placa = vplaca;
+    END LOOP;
+    CLOSE cur;
     
-    SELECT fkPlaca INTO vplaca FROM Lavado WHERE fkidempleadoUno = p_IdEmpleado OR fkidempleadoDos = p_IdEmpleado LIMIT 1;
-    DELETE FROM Lavado WHERE fkidempleadoUno = p_IdEmpleado OR fkidempleadoDos = p_IdEmpleado;
-    DELETE FROM Vehiculo WHERE Placa = vplaca;
     DELETE FROM Empleado WHERE IdEmpleado = p_IdEmpleado;
 
     COMMIT;
 END ;;
-DELIMITER ;
+
 
 /*MOSTRAR*/
 delimiter ;;
@@ -168,6 +180,7 @@ IN p_Placa VARCHAR(50))
 BEGIN 
 SELECT Tipo,VariableClasificacion FROM vehiculo WHERE Placa=p_Placa;
 END;;
+CALL CostoVariable('EJE1');
 
 												/*Vistas*/
 CREATE VIEW v_reportes AS
